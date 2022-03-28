@@ -1,3 +1,4 @@
+#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 #################
 # Misc settings #
 #################
@@ -51,15 +52,15 @@ LOCATION_FILTER_THRESHOLD = 0.03
 # Note: Entries in this list have to match entries from the LABELS_FILE
 # We use the 2021 eBird taxonomy for species names (Clements list)
 CODES_FILE = 'eBird_taxonomy_codes_2021E.json'
-SPECIES_LIST_FILE = 'example/species_list.txt' 
+SPECIES_LIST_FILE = '' 
 
 # File input path and output path for selection tables
-INPUT_PATH = 'example/'
-OUTPUT_PATH = 'example/'
+INPUT_PATH = ''
+OUTPUT_PATH = ''
 
 # Number of threads to use for inference.
 # Can be as high as number of CPUs in your system
-CPU_THREADS = 8
+CPU_THREADS = 2
 TFLITE_THREADS = 1 
 
 # False will output logits, True will convert to sigmoid activations
@@ -79,7 +80,7 @@ BATCH_SIZE = 1
 # Specifies the output format. 'table' denotes a Raven selection table,
 # 'audacity' denotes a TXT file with the same format as Audacity timeline labels
 # 'csv' denotes a CSV file with start, end, species and confidence.
-RESULT_TYPE = 'table'
+RESULT_TYPE = 'csv'
 
 #####################
 # Misc runtime vars #
