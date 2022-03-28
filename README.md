@@ -130,8 +130,8 @@ pip3 install librosa tflite-runtime
 
 Ensure all scripts use the venv and are executable
 ```
-for script in /home/pi/BirdNET-Pi/*.py;do
-  sed -i '1 i\#!\/home\/pi\/BirdNET-Pi\/birdnet\/bin\python3' $script
+for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
+  sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
   chmod +x $script
 done
 ```
