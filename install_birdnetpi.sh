@@ -43,3 +43,17 @@ install_recording_service() {
   sudo ln -sf /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_recording.service /usr/lib/systemd/system
   sudo systemctl enable birdnet_recording.service
 }
+
+install_birdnet() {
+  git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Analyzer-Pi
+  cd ~/BirdNET-Analyzer-Pi
+  python3 -m venv birdnet
+  source ./birdnet/bin/activate
+  pip3 install --upgrade pip
+  pip3 install librosa tflite-runtime
+  deactivate
+  for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
+    sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
+    chmod +x $script
+  done
+}
