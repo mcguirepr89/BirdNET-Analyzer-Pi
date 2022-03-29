@@ -45,7 +45,7 @@ install_recording_service() {
 }
 
 install_birdnet() {
-  git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Analyzer-Pi
+  git clone git@github.com:mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Analyzer-Pi
   cd ~/BirdNET-Analyzer-Pi
   python3 -m venv birdnet
   source ./birdnet/bin/activate
