@@ -27,18 +27,18 @@ sudo apt -y install ${dependencies[@]}
 
 install_recording_service() {
   echo "Installing birdnet_recording.service"
-  cat <<- EOF > /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_recording.service
-    [Unit]
-    Description=BirdNET Recording
-    [Service]
-    Environment=XDG_RUNTIME_DIR=/run/user/1000
-    Restart=always
-    Type=simple
-    RestartSec=3
-    User=${USER}
-    ExecStart=/home/pi/BirdNET-Analyzer-Pi/birdnet_recording.sh
-    [Install]
-    WantedBy=multi-user.target
+  cat << EOF > /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_recording.service
+[Unit]
+Description=BirdNET Recording
+[Service]
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Restart=always
+Type=simple
+RestartSec=3
+User=${USER}
+ExecStart=/home/pi/BirdNET-Analyzer-Pi/birdnet_recording.sh
+[Install]
+WantedBy=multi-user.target
 EOF
   sudo ln -sf /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_recording.service /usr/lib/systemd/system
   sudo systemctl enable birdnet_recording.service
