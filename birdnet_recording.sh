@@ -2,6 +2,8 @@
 set -x
 
 [ -z $RECORDING_LENGTH ] && RECORDING_LENGTH=15
+[ -z $CHANNELS] && CHANNELS=2
+[ -z $RECS_DIR] && RECS_DIR=/home/pi/BirdNET-Analyzer-Pi/Raw
 
 if pgrep arecord &> /dev/null ;then
   echo "Recording"

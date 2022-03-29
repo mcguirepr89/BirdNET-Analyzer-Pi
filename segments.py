@@ -1,5 +1,4 @@
 #!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
-#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 import os
 import argparse
 import traceback
@@ -253,7 +252,3 @@ if __name__ == '__main__':
     else:
         with Pool(cfg.CPU_THREADS) as p:
             p.map(extractSegments, flist)
-
-    # A few examples to test
-    # python3 segments.py --audio example/ --results example/ --o example/segments/ 
-    # python3 segments.py --audio example/ --results example/ --o example/segments/ --seg_length 5.0 --min_conf 0.1 --max_segments 100 --threads 4
