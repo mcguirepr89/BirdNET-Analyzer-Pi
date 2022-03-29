@@ -58,8 +58,8 @@ install_birdnet() {
   done
 }
 
-echo "Installing Recording Service"
-install_recording_service
-
 echo "Installing BirdNET-Analyzer"
 install_birdnet
+
+echo "Installing Recording Service"
+install_recording_service
