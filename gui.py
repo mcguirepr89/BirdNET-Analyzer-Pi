@@ -1,4 +1,5 @@
 #!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
+#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 import os
 import time
 import traceback
