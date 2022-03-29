@@ -22,10 +22,6 @@ install_birdnet() {
   pip3 install --upgrade pip
   pip3 install librosa tflite-runtime
   deactivate
-  for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
-    sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
-    chmod +x $script
-  done
 }
 
 install_recording_service() {
