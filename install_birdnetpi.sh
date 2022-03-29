@@ -57,3 +57,9 @@ install_birdnet() {
     chmod +x $script
   done
 }
+
+echo "Installing Recording Service"
+install_recording_service
+
+echo "Installing BirdNET-Analyzer"
+install_birdnet
