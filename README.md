@@ -95,57 +95,9 @@ BirdNET powers a number of fantastic community projects dedicated to bird song i
 Working on a cool project that uses BirdNET? Let us know and we can feature your project here.
 
 ## Setup Raspberry Pi RaspiOS-ARM64-Lite for testing
-```
-sudo apt update && sudo apt -y upgrade
-sudo apt -y install git python3-dev python3-pip python3-venv ffmpeg
-git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Analyzer-Pi
-cd ~/BirdNET-Analyzer-Pi
-python3 -m venv birdnet
-source ./birdnet/bin/activate
-pip3 install --upgrade pip
-pip3 install librosa tflite-runtime
-deactivate
-for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
-  sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
-  chmod +x $script
-done
-./analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
-```
 
-Update & Upgrade:
 ```
-sudo apt update && sudo apt -y upgrade
-```
-
-Install dependencies:
-```
-sudo apt -y install git python3-dev python3-pip python3-venv ffmpeg
-```
-
-Clone repo:
-```
-git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Pi
-```
-
-Create python3 virtual environment:
-```
-cd ~/BirdNET-Pi
-python3 -m venv birdnet
-```
-
-Install remaining dependencies:
-```
-source ./birdnet/bin/activate
-pip3 install --upgrade pip
-pip3 install librosa tflite-runtime
-```
-
-Ensure all scripts use the venv and are executable
-```
-for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
-  sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
-  chmod +x $script
-done
+curl -s https://github.com/mcguirepr89/BirdNET-Analyzer-Pi/raw/main/install_birdnetpi.sh | bash
 ```
 
 ## Usage
