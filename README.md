@@ -6,7 +6,9 @@
 [os-badge]: https://badgen.net/badge/OS/Linux%2C%20Windows/blue
 [species-badge]: https://badgen.net/badge/Species/1318/blue
 
-# BirdNET-Analyzer
+# BirdNET-Analyzer-Pi
+
+
 BirdNET analyzer script for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
 
 Feel free to use BirdNET for your acoustic analyses and research. If you do, please cite as:
@@ -42,11 +44,8 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 
 ## Contents
 
-[Model version update](#model-version-update)  
-[Setup (Ubuntu)](#setup-ubuntu)  
-[Setup (Windows)](#setup-windows)  
-[Usage](#usage)  
-[Usage (Docker)](#usage-docker)  
+[Model version update](#model-version-update)
+[Usage](#usage)   
 [Funding](#funding)  
 [Partners](#partners)
 
@@ -93,57 +92,9 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 - currently deployed as BirdNET app model
 
 ## Setup Raspberry Pi RaspiOS-ARM64-Lite for testing
-```
-sudo apt update && sudo apt -y upgrade
-sudo apt -y install git python3-dev python3-pip python3-venv ffmpeg
-git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Analyzer-Pi
-cd ~/BirdNET-Analyzer-Pi
-python3 -m venv birdnet
-source ./birdnet/bin/activate
-pip3 install --upgrade pip
-pip3 install librosa tflite-runtime
-deactivate
-for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
-  sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
-  chmod +x $script
-done
-./analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
-```
 
-Update & Upgrade:
 ```
-sudo apt update && sudo apt -y upgrade
-```
-
-Install dependencies:
-```
-sudo apt -y install git python3-dev python3-pip python3-venv ffmpeg
-```
-
-Clone repo:
-```
-git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git /home/pi/BirdNET-Pi
-```
-
-Create python3 virtual environment:
-```
-cd ~/BirdNET-Pi
-python3 -m venv birdnet
-```
-
-Install remaining dependencies:
-```
-source ./birdnet/bin/activate
-pip3 install --upgrade pip
-pip3 install librosa tflite-runtime
-```
-
-Ensure all scripts use the venv and are executable
-```
-for script in /home/pi/BirdNET-Analyzer-Pi/*.py;do
-  sed -i '1 i\#!\/home\/pi\/BirdNET-Analyzer-Pi\/birdnet\/bin\/python3' $script
-  chmod +x $script
-done
+curl -s https://github.com/mcguirepr89/BirdNET-Analyzer-Pi/raw/main/install_birdnetpi.sh | bash
 ```
 
 ## Usage
@@ -153,7 +104,7 @@ done
 2. Run `analyzer.py` to analyze an audio file. You need to set paths for the audio file and selection table output. Here is an example:
 
 ```
-python3 analyze.py --i /path/to/audio/folder --o /path/to/output/folder
+./analyze.py --i /path/to/audio/folder --o /path/to/output/folder
 ```
 
 <b>NOTE</b>: Your custom species list has to be named 'species_list.txt' and the folder containing the list needs to be specified with `--slist /path/to/folder`. You can also specify the number of CPU threads that should be used for the analysis with `--threads <Integer>` (e.g., `--threads 16`). If you provide GPS coordinates with `--lat` and `--lon`, the custom species list argument will be ignored.
@@ -180,15 +131,15 @@ Here's a complete list of all command line arguments:
 Here are two example commands to run this BirdNET version:
 
 ```
-python3 analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
+./analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
 
-python3 analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
+./analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
 ```
 
 3. Run `embeddings.py` to extract feature embeddings instead of class predictions. Result file will contain timestamps and lists of float values representing the embedding for a particular 3-second segment. Embeddings can be used for clustering or similarity analysis. Here is an example:
 
 ```
-python3 embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
+./embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
 ```
 
 Here's a complete list of all command line arguments:
@@ -223,7 +174,7 @@ Species names need to consist of `scientific name_common name` to be valid.
 6. You can generate a species list for a given location using `species.py` in case you need it for reference. Here is an example:
 
 ```
-python3 species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
+./species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
 ```
 
 Here's a complete list of all command line arguments:
@@ -242,46 +193,6 @@ Here's a complete list of all command line arguments:
 8. Please open an issue to ask for new features or to document unexpected behavior.
 
 9. I will keep models up to date and upload new checkpoints whenever there is an improvement in performance. I will also provide quantized and pruned model files for distribution.
-
-## Usage (Docker)
-
-Install docker for Ubuntu:
-
-```
-sudo apt install docker.io
-```
-
-Build Docker container:
-
-```
-sudo docker build -t birdnet .
-```
-
-<b>NOTE</b>: You need to run docker build again whenever you make changes to the script.
-
-In order to pass a directory that contains your audio files to the docker file, you need to mount it inside the docker container with <i>-v /my/path:/mount/path</i> before you can run the container. 
-
-You can run the container for the provided example soundscapes with:
-
-```
-sudo docker run -v $PWD/example:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can adjust the directory that contains your recordings by providing an absolute path:
-
-```
-sudo docker run -v /path/to/your/audio/files:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can also mount more than one drive, e.g., if input and output folder should be different:
-
-```
-sudo docker run -v /path/to/your/audio/files:/input -v /path/to/your/output/folder:/output birdnet --i input --o output --slist input
-```
-
-See "Usage" section above for more command line arguments, all of them will work with Docker version.
-
-<b>NOTE</b>: If you like to specify a species list (which will be used as post-filter and needs to be named 'species_list.txt'), you need to put it into a folder that also has to be mounted. 
 
 ## Funding
 
