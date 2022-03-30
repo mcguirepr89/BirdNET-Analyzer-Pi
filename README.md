@@ -40,6 +40,16 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 
 <b>Have a question, remark or feature request? Please start a new issue thread to let us know. Feel free to submit pull request.</b>
 
+## Contents
+
+[Model version update](#model-version-update)  
+[Setup (Ubuntu)](#setup-ubuntu)  
+[Setup (Windows)](#setup-windows)  
+[Usage](#usage)  
+[Usage (Docker)](#usage-docker)  
+[Funding](#funding)  
+[Partners](#partners)
+
 ## Model version update
 
 **V2.0**
@@ -198,7 +208,6 @@ Here's a complete list of all command line arguments:
 --audio, Path to folder containing audio files.
 --results, Path to folder containing result files.
 --o, Output folder path for extracted segments.
---rtype, Output format of result files. Values in ['table', 'audacity', 'r', 'csv']. Defaults to 'table' (Raven selection table).
 --min_conf, Minimum confidence threshold. Values in [0.01, 0.99]. Defaults to 0.1.
 --max_segments, Number of randomly extracted segments per species.
 --seg_length, Length of extracted segments in seconds. Defaults to 3.0.
@@ -277,3 +286,11 @@ See "Usage" section above for more command line arguments, all of them will work
 ## Funding
 
 This project is supported by Jake Holshuh (Cornell class of ’69) and The Arthur Vining Davis Foundations. Our work in the K. Lisa Yang Center for Conservation Bioacoustics is made possible by the generosity of K. Lisa Yang to advance innovative conservation technologies to inspire and inform the conservation of wildlife and habitats.
+
+The European Union and the European Social Fund for Germany partially funded this research. This work was also partially funded by the German Federal Ministry of Education and Research in the program of Entrepreneurial Regions InnoProfileTransfer in the project group localizeIT (funding code 03IPT608X).
+
+## Partners
+
+BirdNET is a joint effort of partners from academia and industry. Without these partnerships, this project would not have been possible. Thank you!
+
+![Logos of all partners](https://tuc.cloud/index.php/s/KSdWfX5CnSRpRgQ/download/box_logos.png)

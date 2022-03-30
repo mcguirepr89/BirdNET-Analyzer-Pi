@@ -12,6 +12,9 @@ export HOME=$HOME
 export my_dir=$my_dir
 export pyconfig=$pyconfig
 
+source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $pyconfig | sed '/Getandset/q')
+
+
 caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
 dependencies=(git python3-dev python3-venv python3-pip ffmpeg caddy sqlite3 alsa-utils pulseaudio)
 install_birdnet() {
