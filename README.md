@@ -10,8 +10,15 @@
 [os-badge]: https://badgen.net/badge/OS/Linux%2C%20Windows/blue
 [species-badge]: https://badgen.net/badge/Species/3327/blue
 
+<<<<<<< HEAD
 ## Introduction
 This repo contains BirdNET models and scripts for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
+=======
+# BirdNET-Analyzer-Pi
+
+
+BirdNET analyzer script for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
+>>>>>>> 9cd1ab6 (Removed things that do not pertain to BirdNET-Pi)
 
 Feel free to use BirdNET for your acoustic analyses and research. If you do, please cite as:
 
@@ -48,6 +55,7 @@ We also have a discussion forum on Reddit if you have a general question or just
 
 ## Contents
 
+<<<<<<< HEAD
 [Model version update](#model-version-update)  
 [Showroom](#showroom)    
 [Setup (Ubuntu)](#setup-ubuntu)  
@@ -56,6 +64,10 @@ We also have a discussion forum on Reddit if you have a general question or just
 [Usage (Docker)](#usage-docker)  
 [Usage (Server)](#usage-server)   
 [Usage (GUI)](#usage-gui)  
+=======
+[Model version update](#model-version-update)
+[Usage](#usage)   
+>>>>>>> 9cd1ab6 (Removed things that do not pertain to BirdNET-Pi)
 [Funding](#funding)  
 [Partners](#partners)
 
@@ -143,7 +155,7 @@ done
 2. Run `analyzer.py` to analyze an audio file. You need to set paths for the audio file and selection table output. Here is an example:
 
 ```
-python3 analyze.py --i /path/to/audio/folder --o /path/to/output/folder
+./analyze.py --i /path/to/audio/folder --o /path/to/output/folder
 ```
 
 <b>NOTE</b>: Your custom species list has to be named 'species_list.txt' and the folder containing the list needs to be specified with `--slist /path/to/folder`. You can also specify the number of CPU threads that should be used for the analysis with `--threads <Integer>` (e.g., `--threads 16`). If you provide GPS coordinates with `--lat` and `--lon`, the custom species list argument will be ignored.
@@ -170,15 +182,15 @@ Here's a complete list of all command line arguments:
 Here are two example commands to run this BirdNET version:
 
 ```
-python3 analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
+./analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
 
-python3 analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
+./analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
 ```
 
 3. Run `embeddings.py` to extract feature embeddings instead of class predictions. Result file will contain timestamps and lists of float values representing the embedding for a particular 3-second segment. Embeddings can be used for clustering or similarity analysis. Here is an example:
 
 ```
-python3 embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
+./embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
 ```
 
 Here's a complete list of all command line arguments:
@@ -214,7 +226,7 @@ Species names need to consist of `scientific name_common name` to be valid.
 6. You can generate a species list for a given location using `species.py` in case you need it for reference. Here is an example:
 
 ```
-python3 species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
+./species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
 ```
 
 Here's a complete list of all command line arguments:
@@ -233,112 +245,6 @@ Here's a complete list of all command line arguments:
 8. Please open an issue to ask for new features or to document unexpected behavior.
 
 9. I will keep models up to date and upload new checkpoints whenever there is an improvement in performance. I will also provide quantized and pruned model files for distribution.
-
-## Usage (Docker)
-
-Install docker for Ubuntu:
-
-```
-sudo apt install docker.io
-```
-
-Build Docker container:
-
-```
-sudo docker build -t birdnet .
-```
-
-<b>NOTE</b>: You need to run docker build again whenever you make changes to the script.
-
-In order to pass a directory that contains your audio files to the docker file, you need to mount it inside the docker container with <i>-v /my/path:/mount/path</i> before you can run the container. 
-
-You can run the container for the provided example soundscapes with:
-
-```
-sudo docker run -v $PWD/example:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can adjust the directory that contains your recordings by providing an absolute path:
-
-```
-sudo docker run -v /path/to/your/audio/files:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can also mount more than one drive, e.g., if input and output folder should be different:
-
-```
-sudo docker run -v /path/to/your/audio/files:/input -v /path/to/your/output/folder:/output birdnet --i input --o output --slist input
-```
-
-See "Usage" section above for more command line arguments, all of them will work with Docker version.
-
-<b>NOTE</b>: If you like to specify a species list (which will be used as post-filter and needs to be named 'species_list.txt'), you need to put it into a folder that also has to be mounted. 
-
-## Usage (Server)
-
-You can host your own analysis service and API by launching the `server.py` script. This will allow you to send files to this server, store submitted files, analyze them and send detection results back to a client. This could be a local service, running on a desktop PC, or a remote server. The API can be accessed locally or remotely through a browser or Python client (or any other client implementation).
-
-1. Install one additional package with `pip3 install bottle`.
-
-2. Start the server with `python3 server.py`. You can also specify a host name or IP and port number, e.g., `python3 server.py --host localhost --port 8080`.
-
-Here's a complete list of all command line arguments:
-
-```
---host, Host name or IP address of API endpoint server. Defaults to '0.0.0.0'.
---port, Port of API endpoint server. Defaults to 8080.    
---spath, Path to folder where uploaded files should be stored. Defaults to '/uploads'.
---threads, Number of CPU threads for analysis. Defaults to 4.
---locale, Locale for translated species common names. Values in ['af', 'de', 'it', ...] Defaults to 'en'.
-```
-
-<b>NOTE</b>: The server is single-threaded, so you'll need to start multiple instances for higher throughput. This service is intented for short audio files (e.g., 1-10 seconds).
-
-3. Query the API with a client. You can use the provided Python client or any other client implementation. Request payload needs to be `multipart/form-data` with the following fields: `audio` for raw audio data as byte code, and `meta` for additional information on the audio file. Take a look at our example client implementation in the `client.py` script.
-
-This script will read an audio file, generate metadata from command line arguments and send it to the server. The server will then analyze the audio file and send back the detection results which will be stored as a JSON file.
-
-Here's a complete list of all command line arguments:
-
-```
---host, Host name or IP address of API endpoint server.
---port, Port of API endpoint server.     
---i, Path to file that should be analyzed.  
---o, Path to result file. Leave blank to store with audio file.  
---lat, Recording location latitude. Set -1 to ignore.
---lon, Recording location longitude. Set -1 to ignore.
---week, Week of the year when the recording was made. Values in [1, 48] (4 weeks per month). Set -1 for year-round species list.
---overlap, Overlap of prediction segments. Values in [0.0, 2.9]. Defaults to 0.0.
---sensitivity, Detection sensitivity; Higher values result in higher sensitivity. Values in [0.5, 1.5]. Defaults to 1.0.
---pmode, Score pooling mode. Values in ['avg', 'max']. Defaults to 'avg'. 
---num_results, Number of results per request.
---sf_thresh, Minimum species occurrence frequency threshold for location filter. Values in [0.01, 0.99]. Defaults to 0.03.
---save, Define if files should be stored on server. Values in [True, False]. Defaults to False.  
-```
-
-4. Parse results from the server. The server will send back a JSON response with the detection results. The response also contains a `msg` field, indicating `success` or `error`. Results consist of a sorted list of (species, score) tuples.
-
-This is an example response:
-
-```
-{"msg": "success", "results": [["Poecile atricapillus_Black-capped Chickadee", 0.7889], ["Spinus tristis_American Goldfinch", 0.5028], ["Junco hyemalis_Dark-eyed Junco", 0.4943], ["Baeolophus bicolor_Tufted Titmouse", 0.4345], ["Haemorhous mexicanus_House Finch", 0.2301]]}
-```
-
-<b>NOTE</b>: Let us know if you have any questions, suggestions, or feature requests. Also let us know when hosting an analysis service - we would love to give it a try.
-
-## Usage (GUI)
-
-We provide a very basic GUI which lets you launch the analysis through a web interface. 
-
-![GUI screenshot](https://tuc.cloud/index.php/s/QyBczrWXCrMoaRC/download/analyzer_gui.png)
-
-1. You need to install one additional package in order to use the GUI with `pip3 install pywebview`
-2. Launch the GUI with `python3 gui.py`.
-3. Set all folders and parameters, after that, click 'Start analysis'. 
-
-Status updates should be visible in 'Status' text area.
-
-<b>NOTE</b>: You can easily adjust the interface by editing `gui/index.html` and `gui/style.css`. Feel free to submit your udated (possibly better looking) version through a pull request. 
 
 ## Funding
 
