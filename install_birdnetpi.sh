@@ -43,20 +43,6 @@ EOF
   sudo systemctl enable birdnet_recording.service
 }
 
-install_caddyfile() {
-  if [ -f /etc/caddy/Caddyfile ];then
-    cp /etc/caddy/Caddyfile{,.original}
-  fi
-  cat << EOF | sudo tee /etc/caddy/Caddyfile
-http://localhost http://$(hostname).local ${birdnetpi_url} {
-  root * ${segments}
-  file_server browse
-  php_fastcgi unix//run/php/php7.4-fpm.sock
-}
-EOF
-  sudo systemctl enable caddy
-}
-
 set_login() {
   set -x
   if ! [ -d /etc/lightdm ];then
@@ -70,8 +56,8 @@ EOF
   fi
 }
 
-echo "Adding dependency repos to apt-sources"
-curl -1sLf "$caddy_url" | sudo -E bash
+#echo "Adding dependency repos to apt-sources"
+#curl -1sLf "$caddy_url" | sudo -E bash
 
 echo "Updating system"
 sudo apt update && sudo apt -y upgrade
@@ -85,8 +71,8 @@ install_birdnet
 echo "Installing Recording Service"
 install_recording_service
 
-echo "Installing the Caddyfile"
-install_caddyfile
+#echo "Installing the Caddyfile"
+#install_caddyfile
 
 echo "Configuring System Settings"
 set_login
