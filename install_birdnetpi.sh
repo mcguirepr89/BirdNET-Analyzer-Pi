@@ -47,7 +47,7 @@ install_caddyfile() {
   if [ -f /etc/caddy/Caddyfile ];then
     cp /etc/caddy/Caddyfile{,.original}
   fi
-  cat << EOF | sudo tee -a /etc/caddy/Caddyfile
+  cat << EOF | sudo tee /etc/caddy/Caddyfile
 http://localhost http://$(hostname).local ${birdnetpi_url} {
   root * ${segments}
   file_server browse
@@ -90,7 +90,3 @@ install_caddyfile
 
 echo "Configuring System Settings"
 set_login
-
-echo "Rebooting to see what's what!"
-sleep 4
-sudo reboot
