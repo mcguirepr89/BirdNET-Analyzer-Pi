@@ -1,4 +1,3 @@
-#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 #################
 # Misc settings #
 #################
@@ -20,6 +19,14 @@ TRANSLATED_LABELS_PATH = 'labels/V2.0'
 # Audio settings #
 ##################
 
+# The sound card arecord should use for recording. 'default' denotes
+# PulseAudio. ('default' recommended)
+REC_CARD = 'default'
+
+# The number of audio channels for recording. Note: This is mostly to ensure
+# you can bring your own soundcard. Inference still only uses 1 audio channel.
+CHANNELS = 2
+
 # We use a sample rate of 48kHz, so the model input size is 
 # (batch size, 48000 kHz * 3 seconds) = (1, 144000)
 # Recordings will be resampled automatically.
@@ -34,6 +41,16 @@ SIG_OVERLAP = 0
 # Define minimum length of audio chunk for prediction, 
 # chunks shorter than 3 seconds will be padded with noise
 SIG_MINLEN = 3.0 
+
+# The length recordings should be before passing them off to be analyzed.
+# 3 seconds is the minumum, 15 seconds is recommended
+RECORDING_LENGTH = 15
+
+# The length of the audio segement that gets extracted as a 'segment'
+SEGMENT_LENGTH = 6
+
+# The audio format for the segments and recording. 
+AUDIO_FMT = 'mp3'
 
 #####################
 # Metadata settings #
