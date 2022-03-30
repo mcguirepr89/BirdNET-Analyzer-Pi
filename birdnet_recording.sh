@@ -8,6 +8,8 @@ source <(grep -ve '^$' -e '^#'  <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 [ -z $CHANNELS] && CHANNELS=2
 [ -z $RECS_DIR] && RECS_DIR=/home/pi/BirdNET-Analyzer-Pi/Raw
 
+if ! pulseaudio --check;then pulseaudio --start;fi
+
 if pgrep arecord &> /dev/null ;then
   echo "Recording"
 else
