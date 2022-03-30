@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -x
+my_dir=/home/pi/BirdNET-Analyzer-Pi
+configpy=${my_dir}/config.py
+source <(grep -ve '^$' -e '^#'  <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 
 [ -z $RECORDING_LENGTH ] && RECORDING_LENGTH=15
 [ -z $CHANNELS] && CHANNELS=2
