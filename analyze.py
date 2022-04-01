@@ -229,7 +229,7 @@ def analyzeFile(item):
         msg = 'Error: Cannot open audio file {}'.format(fpath)
         print(msg, flush=True)
         writeErrorLog(msg)
-        return
+        return False
 
     # Process each chunk
     try:
@@ -283,7 +283,7 @@ def analyzeFile(item):
         msg = 'Error: Cannot analyze audio file {}.\n{}'.format(fpath, traceback.format_exc())
         print(msg, flush=True)
         writeErrorLog(msg)
-        return      
+        return False     
 
     # Save as selection table
     try:
@@ -313,11 +313,12 @@ def analyzeFile(item):
         msg = 'Error: Cannot save result for {}.\n{}'.format(fpath, traceback.format_exc())
         print(msg, flush=True)
         writeErrorLog(msg)
-        return
+        return False
 
     delta_time = (datetime.datetime.now() - start_time).total_seconds()
     print('Finished {} in {:.2f} seconds'.format(fpath, delta_time), flush=True)
 
+    return True
 
 if __name__ == '__main__':
 
@@ -369,6 +370,7 @@ if __name__ == '__main__':
 
     # Load species list from location filter or provided list
     cfg.LATITUDE, cfg.LONGITUDE, cfg.WEEK = args.lat, args.lon, args.week
+    cfg.LOCATION_FILTER_THRESHOLD = max(0.01, min(0.99, float(args.sf_thresh)))
     if cfg.LATITUDE == -1 and cfg.LONGITUDE == -1:
         if len(args.slist) == 0:
             cfg.SPECIES_LIST_FILE = None
@@ -402,11 +404,8 @@ if __name__ == '__main__':
     # Set confidence threshold
     cfg.MIN_CONFIDENCE = max(0.01, min(0.99, float(args.min_conf)))
 
-    # Set location filter threshold
-    cfg.LOCATION_FILTER_THRESHOLD = max(0.01, min(0.99, float(args.sf_thresh)))
-
     # Set sensitivity
-    cfg.SIGMOID_SENSITIVITY = max(0.5, min(1.0 - (args.sensitivity - 1.0), 1.5))
+    cfg.SIGMOID_SENSITIVITY = max(0.5, min(1.0 - (float(args.sensitivity) - 1.0), 1.5))
 
     # Set overlap
     cfg.SIG_OVERLAP = max(0.0, min(2.9, float(args.overlap)))
@@ -418,11 +417,11 @@ if __name__ == '__main__':
 
     # Set number of threads
     if os.path.isdir(cfg.INPUT_PATH):
-        cfg.CPU_THREADS = int(args.threads)
+        cfg.CPU_THREADS = max(1, int(args.threads))
         cfg.TFLITE_THREADS = 1
     else:
         cfg.CPU_THREADS = 1
-        cfg.TFLITE_THREADS = int(args.threads)
+        cfg.TFLITE_THREADS = max(1, int(args.threads))
 
     # Set batch size
     cfg.BATCH_SIZE = max(1, int(args.batchsize))
