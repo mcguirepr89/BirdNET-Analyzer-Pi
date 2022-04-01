@@ -125,6 +125,9 @@ def getConfig():
         'SIG_LENGTH': SIG_LENGTH,
         'SIG_OVERLAP': SIG_OVERLAP,
         'SIG_MINLEN': SIG_MINLEN,
+        'RECORDING_LENGTH': RECORDING_LENGTH,
+        'SEGMENT_LENGTH': SEGMENT_LENGTH,
+        'AUDIO_FMT': AUDIO_FMT,
         'LANGUAGE' : LANGUAGE,
         'LATITUDE': LATITUDE,
         'LONGITUDE': LONGITUDE,
@@ -154,10 +157,16 @@ def setConfig(c):
     global MODEL_PATH
     global MDATA_MODEL_PATH
     global LABELS_FILE
+    global REC_CARD
+    global CHANNELS
     global SAMPLE_RATE
     global SIG_LENGTH
     global SIG_OVERLAP
     global SIG_MINLEN
+    global RECORDING_LENGTH
+    global SEGMENT_LENGTH
+    global AUDIO_FMT
+    global LANGUAGE
     global LATITUDE
     global LONGITUDE
     global WEEK
