@@ -27,10 +27,12 @@ install_birdnet() {
 
 auto-detect_settings() {
   LATITUDE="LATITUDE = $(curl -s4 ifconfig.co/json | awk '/lat/ {print $2}' | tr -d ',')"
-  LONGITUDE="LONGITUDE = $(curl -s4 ifconfig.co/json | awk '/lon/ {print $2}' | tr -d ',')"
   sed -i "s/LATITUDE = -1/$LATITUDE/" ${configpy}
+  LONGITUDE="LONGITUDE = $(curl -s4 ifconfig.co/json | awk '/lon/ {print $2}' | tr -d ',')"
   sed -i "s/LONGITUDE = -1/$LONGITUDE/" ${configpy}
-  
+  LANGUAGE="LANGUAGE = \'$(echo $LANG|cut -d'_' -f1)\'"
+  sed -i "s/LANGUAGE =.*/$LANGUAGE/" ${configpy}
+
   source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 }
 
