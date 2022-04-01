@@ -39,6 +39,25 @@ auto-detect_settings() {
   source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 }
 
+install_birdnet_analysis() {
+  cat << EOF > /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_analysis.service
+[Unit]
+Description=BirdNET Analysis
+After=birdnet_server.service
+Requires=birdnet_server.service
+[Service]
+Restart=always
+Type=simple
+RestartSec=2
+User=${USER}
+ExecStart=/home/pi/BirdNET-Analyzer-Pi/birdnet_analysis.sh
+[Install]
+WantedBy=multi-user.target
+EOF
+  ln -sf /home/pi/BirdNET-Pi/templates/birdnet_analysis.service /usr/lib/systemd/system
+  systemctl enable birdnet_analysis.service
+}
+
 install_recording_service() {
   echo "Installing birdnet_recording.service"
   cat << EOF > /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_recording.service

@@ -195,6 +195,7 @@ def saveResultFile(r, path, afile_path):
     # Save as file
     with open(path, 'w') as rfile:
         rfile.write(out_string)
+        print(out_string)
 
 
 def getSortedTimestamps(results):
