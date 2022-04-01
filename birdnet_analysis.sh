@@ -15,6 +15,7 @@ elif [ ${day_of_month} -ge 22 ];then
   week="$(echo "${week_of_year} + 4" |bc -l)"
 fi
 
-for file in $(find ${RECS_DIR} -type f);do
-  /home/pi/BirdNET-Analyzer-Pi/analyze.py --i ${file} --o ${file}.csv --week ${week} --locale ${LANGUAGE} --lat ${LATITUDE} --lon ${LONGITUDE} --sensitivity ${SIGMOID_SENSITIVITY} --min_conf ${MIN_CONFIDENCE} --overlap ${SIG_OVERLAP} --sf-thresh ${LOCATION_FILTER_THRESHOLD}
+for file in $(find ${RECS_DIR} -type f|sort);do
+  /home/pi/BirdNET-Analyzer-Pi/analyze.py --i ${file} --o ${file}.csv --week ${week} --locale ${LANGUAGE} --lat ${LATITUDE} --lon ${LONGITUDE} --sensitivity ${SIGMOID_SENSITIVITY} --min_conf ${MIN_CONFIDENCE} --overlap ${SIG_OVERLAP} --sf_thresh ${LOCATION_FILTER_THRESHOLD}
+  mv ${file} ${file}.csv ${ANALYZED_DIR}
 done
