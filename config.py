@@ -35,6 +35,9 @@ SIG_OVERLAP = 0
 # chunks shorter than 3 seconds will be padded with zeros
 SIG_MINLEN = 1.0 
 
+# Recording Directory path
+RECS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Raw'
+
 #####################
 # Metadata settings #
 #####################
@@ -102,8 +105,8 @@ def getConfig():
         'MODEL_PATH': MODEL_PATH,
         'MDATA_MODEL_PATH': MDATA_MODEL_PATH,
         'LABELS_FILE': LABELS_FILE,
-        'REC_CARD' : REC_CARD,
-        'CHANNELS' : CHANNELS,
+        'REC_CARD': REC_CARD,
+        'CHANNELS': CHANNELS,
         'SAMPLE_RATE': SAMPLE_RATE,
         'SIG_LENGTH': SIG_LENGTH,
         'SIG_OVERLAP': SIG_OVERLAP,
@@ -111,7 +114,8 @@ def getConfig():
         'RECORDING_LENGTH': RECORDING_LENGTH,
         'SEGMENT_LENGTH': SEGMENT_LENGTH,
         'AUDIO_FMT': AUDIO_FMT,
-        'LANGUAGE' : LANGUAGE,
+        'RECS_DIR': RECS_DIR,
+        'LANGUAGE': LANGUAGE,
         'LATITUDE': LATITUDE,
         'LONGITUDE': LONGITUDE,
         'WEEK': WEEK,
@@ -149,6 +153,7 @@ def setConfig(c):
     global RECORDING_LENGTH
     global SEGMENT_LENGTH
     global AUDIO_FMT
+    global RECS_DIR
     global LANGUAGE
     global LATITUDE
     global LONGITUDE
@@ -175,10 +180,17 @@ def setConfig(c):
     MODEL_PATH = c['MODEL_PATH']
     MDATA_MODEL_PATH = c['MDATA_MODEL_PATH']
     LABELS_FILE = c['LABELS_FILE']
+    REC_CARD = c['REC_CARD']
+    CHANNELS = c['CHANNELS']
     SAMPLE_RATE = c['SAMPLE_RATE']
     SIG_LENGTH = c['SIG_LENGTH']
     SIG_OVERLAP = c['SIG_OVERLAP']
     SIG_MINLEN = c['SIG_MINLEN']
+    RECORDING_LENGTH = c['RECORDING_LENGTH']
+    SEGMENT_LENGTH = c['SEGMENT_LENGTH']
+    AUDIO_FMT = c['AUDIO_FMT']
+    RECS_DIR = c['RECS_DIR']
+    LANGUAGE = c['LANGUAGE']
     LATITUDE = c['LATITUDE']
     LONGITUDE = c['LONGITUDE']
     WEEK = c['WEEK']
