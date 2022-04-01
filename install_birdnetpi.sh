@@ -12,7 +12,7 @@ export HOME=$HOME
 export my_dir=$my_dir
 export configpy=$configpy
 
-source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q')
+source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 
 
 #caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
