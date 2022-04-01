@@ -55,7 +55,8 @@ AUDIO_FMT = 'mp3'
 #####################
 # Metadata settings #
 #####################
-
+# System language settings
+LANGUAGE = ''
 LATITUDE = -1
 LONGITUDE = -1
 WEEK = -1
@@ -118,10 +119,13 @@ def getConfig():
         'MODEL_PATH': MODEL_PATH,
         'MDATA_MODEL_PATH': MDATA_MODEL_PATH,
         'LABELS_FILE': LABELS_FILE,
+        'REC_CARD' : REC_CARD,
+        'CHANNELS' : CHANNELS,
         'SAMPLE_RATE': SAMPLE_RATE,
         'SIG_LENGTH': SIG_LENGTH,
         'SIG_OVERLAP': SIG_OVERLAP,
         'SIG_MINLEN': SIG_MINLEN,
+        'LANGUAGE' : LANGUAGE,
         'LATITUDE': LATITUDE,
         'LONGITUDE': LONGITUDE,
         'WEEK': WEEK,
