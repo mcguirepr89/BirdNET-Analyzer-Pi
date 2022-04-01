@@ -8,11 +8,6 @@ HOME=/home/pi
 my_dir=$HOME/BirdNET-Analyzer-Pi
 configpy=$my_dir/config.py
 
-export USER=$USER
-export HOME=$HOME
-export my_dir=$my_dir
-export configpy=$configpy
-
 #caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
 dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils pulseaudio bc)
 
