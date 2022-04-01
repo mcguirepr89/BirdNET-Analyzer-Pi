@@ -6,7 +6,7 @@ set -x
 USER=pi
 HOME=/home/pi
 my_dir=$HOME/BirdNET-Analyzer-Pi
-pyconfig=$my_dir/config.py
+configpy=$my_dir/config.py
 
 export USER=$USER
 export HOME=$HOME
