@@ -55,13 +55,19 @@ AUDIO_FMT = 'mp3'
 # Recording Directory path
 RECS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Raw'
 
+# Analyzed Directory path
+ANALYZED_DIR = '/home/pi/BirdNET-Analyzer-Pi/Analyzed'
+
+# Segments Directory path
+SEGMENTS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Segments'
+
 #####################
 # Metadata settings #
 #####################
 # System language settings
-LANGUAGE = ''
-LATITUDE = -1
-LONGITUDE = -1
+LANGUAGE = 'en'
+LATITUDE = 38.8263
+LONGITUDE = -77.2111
 WEEK = -1
 LOCATION_FILTER_THRESHOLD = 0.03
 
@@ -132,6 +138,8 @@ def getConfig():
         'SEGMENT_LENGTH': SEGMENT_LENGTH,
         'AUDIO_FMT': AUDIO_FMT,
         'RECS_DIR': RECS_DIR,
+        'ANALYZED_DIR': ANALYZED_DIR,
+        'SEGMENTS_DIR': SEGMENTS_DIR,
         'LANGUAGE': LANGUAGE,
         'LATITUDE': LATITUDE,
         'LONGITUDE': LONGITUDE,
@@ -171,6 +179,8 @@ def setConfig(c):
     global SEGMENT_LENGTH
     global AUDIO_FMT
     global RECS_DIR
+    global ANALYZED_DIR
+    global SEGMENTS_DIR
     global LANGUAGE
     global LATITUDE
     global LONGITUDE
@@ -207,7 +217,9 @@ def setConfig(c):
     SEGMENT_LENGTH = c['SEGMENT_LENGTH']
     AUDIO_FMT = c['AUDIO_FMT']
     RECS_DIR = c['RECS_DIR']
-    LANGUAGE = c['LANGUAGE']
+    ANALYZED_DIR = c['ANALYZED_DIR']
+    SEGMENTS_DIR = c['SEGMENTS_DIR']
+    LANGUAGE = 'en'
     LATITUDE = c['LATITUDE']
     LONGITUDE = c['LONGITUDE']
     WEEK = c['WEEK']
