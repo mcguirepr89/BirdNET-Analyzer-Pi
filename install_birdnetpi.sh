@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # This installs BirdNET-Pi for you!
+set -x
 
 # Environment
 USER=pi
