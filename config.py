@@ -35,6 +35,9 @@ SIG_OVERLAP = 0
 # chunks shorter than 3 seconds will be padded with zeros
 SIG_MINLEN = 1.0 
 
+#####################
+#      OS Paths     #
+#####################
 # Recording Directory path
 RECS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Raw'
 
@@ -44,11 +47,25 @@ ANALYZED_DIR = '/home/pi/BirdNET-Analyzer-Pi/Analyzed'
 # Segments Directory path
 SEGMENTS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Segments'
 
+# Storage Directory path (see STORAGE below for more info)
+STORAGE_DIR = '/home/pi/BirdNET-Analyzer-Pi/Storage'
+
 #####################
-# Metadata settings #
+# Metadata and user #
+#      settings     #
 #####################
 # System language settings
 LANGUAGE = 'en'
+
+# Raw data storage option. If set to 'keep' the system will store the
+# amount of data defined in the STORAGE_LIMIT variable directly below.
+# If set to 'purge,' no raw data is stored.
+STORAGE = 'keep'
+
+# Set this to the amount of raw data that should be kept in Gigabytes
+# DO NOT supply the unit
+# Example: STORAGE_LIMIT = 1
+STORAGE_LIMIT = '1'
 LATITUDE = 38.8263
 LONGITUDE = -77.2111
 WEEK = -1
@@ -80,7 +97,7 @@ SIGMOID_SENSITIVITY = 1.0
 # Minimum confidence score to include in selection table 
 # (be aware: if APPLY_SIGMOID = False, this no longer represents 
 # probabilities and needs to be adjusted)
-MIN_CONFIDENCE = 0.1 
+MIN_CONFIDENCE = 0.3
 
 # Number of samples to process at the same time. Higher values can increase
 # processing speed, but will also increase memory usage.
@@ -123,7 +140,10 @@ def getConfig():
         'RECS_DIR': RECS_DIR,
         'ANALYZED_DIR': ANALYZED_DIR,
         'SEGMENTS_DIR': SEGMENTS_DIR,
+        'STORAGE_DIR': STORAGE_DIR,
         'LANGUAGE': LANGUAGE,
+        'STORAGE': STORAGE,
+        'STORAGE_LIMIT': STORAGE_LIMIT,
         'LATITUDE': LATITUDE,
         'LONGITUDE': LONGITUDE,
         'WEEK': WEEK,
@@ -164,7 +184,10 @@ def setConfig(c):
     global RECS_DIR
     global ANALYZED_DIR
     global SEGMENTS_DIR
+    global STORAGE_DIR
     global LANGUAGE
+    global STORAGE
+    global STORAGE_LIMIT
     global LATITUDE
     global LONGITUDE
     global WEEK
@@ -202,7 +225,10 @@ def setConfig(c):
     RECS_DIR = c['RECS_DIR']
     ANALYZED_DIR = c['ANALYZED_DIR']
     SEGMENTS_DIR = c['SEGMENTS_DIR']
-    LANGUAGE = 'en'
+    STORAGE_DIR = c['STORAGE_DIR']
+    LANGUAGE = c['LANGUAGE']
+    STORAGE = c['STORAGE']
+    STORAGE_LIMIT = c['STORAGE_LIMIT']
     LATITUDE = c['LATITUDE']
     LONGITUDE = c['LONGITUDE']
     WEEK = c['WEEK']
