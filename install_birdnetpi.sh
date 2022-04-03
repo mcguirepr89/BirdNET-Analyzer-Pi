@@ -105,8 +105,5 @@ install_birdnet_analysis
 echo "Installing Recording Service"
 install_recording_service
 
-#echo "Installing the Caddyfile"
-#install_caddyfile
-
 echo "Configuring System Settings"
 set_login
