@@ -8,6 +8,7 @@ my_dir=/home/pi/BirdNET-Analyzer-Pi
 configpy=${my_dir}/config.py
 analyzepy=${my_dir}/analyze.py
 segmentspy=${my_dir}/segments.py
+
 source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
 
 get_week() {
@@ -72,6 +73,7 @@ while true;do
       echo "Starting Analysis"
       analyze
       echo "Moving results"
+      [ -d $ANALYZED_DIR ] || mkdir -p $ANALYZED_DIR
       mv -v $file $file_results $ANALYZED_DIR
       echo "Starting segments"
       segments
@@ -88,4 +90,5 @@ while true;do
       sleep 1
     fi
   done
+  get_week
 done
