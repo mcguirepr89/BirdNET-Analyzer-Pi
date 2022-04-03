@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Run analyze.py with the correct arguments
-#set -x #Uncomment to debug
-set -e #Exit if anything fails
+set -x #Uncomment to debug
 
 #variables
 my_dir=/home/pi/BirdNET-Analyzer-Pi
@@ -71,7 +70,9 @@ while true;do
     if [ $file_length -ge $RECORDING_LENGTH ];then
       sleep 1
       echo "Starting Analysis"
+      set -e #Exit if anything fails
       analyze
+      set +e #Turn off the exit on error
       echo "Moving results"
       [ -d $ANALYZED_DIR ] || mkdir -p $ANALYZED_DIR
       mv -v $file $file_results $ANALYZED_DIR

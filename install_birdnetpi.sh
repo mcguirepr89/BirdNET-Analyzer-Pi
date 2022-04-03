@@ -50,7 +50,7 @@ ExecStart=/home/pi/BirdNET-Analyzer-Pi/birdnet_analysis.sh
 [Install]
 WantedBy=multi-user.target
 EOF
-  sudo ln -sf /home/pi/BirdNET-Pi/templates/birdnet_analysis.service /usr/lib/systemd/system
+  sudo ln -sf /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_analysis.service /usr/lib/systemd/system
   sudo systemctl enable birdnet_analysis.service
 }
 
@@ -100,6 +100,9 @@ install_birdnet
 
 echo "Auto-detecting some settings"
 auto-detect_settings
+
+echo "Install BirdNET Analysis Service"
+install_birdnet_analysis
 
 echo "Installing Recording Service"
 install_recording_service
