@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run analyze.py with the correct arguments
-set -x #Uncomment to debug
+#set -x #Uncomment to debug
 
 #variables
 my_dir=/home/pi/BirdNET-Analyzer-Pi
@@ -53,9 +53,10 @@ segments() {
 cleanup() {
   if grep "G" <(du -h $STORAGE_DIR);then
     space=$(du -h $STORAGE_DIR|cut -d'G' -f1)
-    if [ $space -gt $STORAGE_LIMIT ];then
-      until [ $space -le $STORAGE_LIMIT ];do
-        tail -n20 <(ls -1t $STORAGE_DIR) | xargs rm -v
+    if [ ${space:0:1} -gt $STORAGE_LIMIT ];then
+      until [ ${space:0:1} -le $STORAGE_LIMIT ];do
+        find $STORAGE_DIR -type f | sort -r | tail -n20 | xargs rm -fv
+        space=$(du -h $STORAGE_DIR|cut -d'G' -f1)
       done
     fi
   fi
@@ -82,7 +83,9 @@ while true;do
         echo "Storing raw data"
         [ -d $STORAGE_DIR ] || mkdir -p $STORAGE_DIR
         mv -v $ANALYZED_DIR/* $STORAGE_DIR
+	set -x
         cleanup
+	set +x
       elif [[ $STORAGE == 'purge' ]];then
         echo "Purging raw data"
         rm -v $ANALYZED_DIR/*
