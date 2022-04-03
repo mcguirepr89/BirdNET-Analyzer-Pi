@@ -39,8 +39,6 @@ install_birdnet_analysis() {
   cat << EOF > /home/pi/BirdNET-Analyzer-Pi/templates/birdnet_analysis.service
 [Unit]
 Description=BirdNET Analysis
-After=birdnet_server.service
-Requires=birdnet_server.service
 [Service]
 Restart=always
 Type=simple
