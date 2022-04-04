@@ -51,14 +51,13 @@ segments() {
 }
 
 cleanup() {
-  if grep "G" <(du -h $STORAGE_DIR);then
-    space=$(du -h $STORAGE_DIR|cut -d'G' -f1)
-    if [ ${space:0:1} -gt $STORAGE_LIMIT ];then
-      until [ ${space:0:1} -le $STORAGE_LIMIT ];do
-        find $STORAGE_DIR -type f | sort -r | tail -n20 | xargs rm -fv
-        space=$(du -h $STORAGE_DIR|cut -d'G' -f1)
-      done
-    fi
+  space=$(du -b $STORAGE_DIR|awk '{print $1}')
+  STORAGE_LIMIT=$(numfmt --from=iec $STORAGE_LIMIT)
+  if [ $space -gt $STORAGE_LIMIT ];then
+    until [ $space -le $STORAGE_LIMIT ];do
+      find $STORAGE_DIR -type f | sort -r | tail -n10 | xargs rm -fv
+      space=$(du -b $STORAGE_DIR|awk '{print $1}')
+    done
   fi
 } 
 
