@@ -185,8 +185,8 @@ def extractSegments(item):
                 seg_sig = sig[int(start):int(end)]
 
                 # Make output path
-#                 outpath = os.path.join(cfg.OUTPUT_PATH, seg['species'])
-                outpath = cfg.OUTPUT_PATH
+                outpath = os.path.join(cfg.OUTPUT_PATH, seg['species'])
+#                outpath = cfg.OUTPUT_PATH
 #                 print(outpath)
                 if not os.path.exists(outpath):
                     os.makedirs(outpath, exist_ok=True)
