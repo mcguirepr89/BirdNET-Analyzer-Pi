@@ -60,12 +60,12 @@ LANGUAGE = 'en'
 # Raw data storage option. If set to 'keep' the system will store the
 # amount of data defined in the STORAGE_LIMIT variable directly below.
 # If set to 'purge,' no raw data is stored.
-STORAGE = 'purge'
+STORAGE = 'keep'
 
 # Set this to the amount of raw data that should be kept.
 # Unit options: B(bytes) M(megabytes) G(gigabytes)
 # Example: STORAGE_LIMIT = 1G
-STORAGE_LIMIT = '1G'
+STORAGE_LIMIT = '750M'
 LATITUDE = -1
 LONGITUDE = -1
 WEEK = -1
