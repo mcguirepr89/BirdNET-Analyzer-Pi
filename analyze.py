@@ -86,18 +86,18 @@ def saveResultFile(r, path, afile_path):
 
     for timestamp in sorted(r):
         rstring = ''
+        tstring = ''
         for c in r[timestamp]:                
             start, end = timestamp.split('-')
-            if c[1] > 0.02:
+            if c[1] > 0.01:
                 label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
-                rstring += '{},{},{},{},{:.4f}\n'.format(
+                tstring += '{},{},{},{},{:.4f}\n'.format(
                     start,
                     end,
                     label.split('_')[0],
                     label.split('_')[1],
                     c[1])
-                print(rstring)
-
+                print(tstring)
             if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):
                 label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
                 rstring += '{},{},{},{},{:.4f}\n'.format(
