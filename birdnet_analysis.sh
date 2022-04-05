@@ -82,9 +82,7 @@ while true;do
         echo "Storing raw data"
         [ -d $STORAGE_DIR ] || mkdir -p $STORAGE_DIR
         mv -v $ANALYZED_DIR/* $STORAGE_DIR
-	set -x
         cleanup
-	set +x
       elif [[ $STORAGE == 'purge' ]];then
         echo "Purging raw data"
         rm -v $ANALYZED_DIR/*
