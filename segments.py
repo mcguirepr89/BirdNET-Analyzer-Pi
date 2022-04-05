@@ -5,6 +5,7 @@ import traceback
 
 import numpy as np
 from multiprocessing import Pool
+#  import pandas as pd
 
 import config as cfg
 import audio
@@ -184,13 +185,16 @@ def extractSegments(item):
                 seg_sig = sig[int(start):int(end)]
 
                 # Make output path
-                outpath = os.path.join(cfg.OUTPUT_PATH, seg['species'])
+#                 outpath = os.path.join(cfg.OUTPUT_PATH, seg['species'])
+                outpath = cfg.OUTPUT_PATH
+#                 print(outpath)
                 if not os.path.exists(outpath):
                     os.makedirs(outpath)
 
                 # Save segment
-                seg_name = '{:.3f}_{}_{}.wav'.format(seg['confidence'], seg_cnt, seg['audio'].split(os.sep)[-1].rsplit('.', 1)[0])
+                seg_name = '{}_{:.3f}_{}_{}.wav'.format(seg['species'], seg['confidence'], seg_cnt, seg['audio'].split(os.sep)[-1].rsplit('.', 1)[0])
                 seg_path = os.path.join(outpath, seg_name)
+#                 print(outpath,seg_name)
                 audio.saveSignal(seg_sig, seg_path)
                 seg_cnt += 1
 
@@ -236,7 +240,15 @@ if __name__ == '__main__':
 
     # Parse file list and make list of segments
     cfg.FILE_LIST = parseFiles(cfg.FILE_LIST, max(1, int(args.max_segments)))
-
+#____________________________________________________________________________    
+#     #Convert file list into dataframe
+#     df=pd.DataFrame(cfg.FILE_LIST[0][1])
+#     print(df)
+    
+    
+#____________________________________________________________________________    
+    
+    
     # Add config items to each file list entry.
     # We have to do this for Windows which does not
     # support fork() and thus each process has to
