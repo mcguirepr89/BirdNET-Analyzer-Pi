@@ -10,10 +10,10 @@ RANDOM_SEED = 42
 ##########################
 
 #MODEL_PATH = 'checkpoints/V1.4/BirdNET_1K_V1.4_Model' # This will load the protobuf model
-MODEL_PATH = 'checkpoints/V2.0/BirdNET_GLOBAL_1K_V2.0_Model_FP32.tflite'
-MDATA_MODEL_PATH = 'checkpoints/V2.0/BirdNET_GLOBAL_1K_V2.0_MData_Model_FP32.tflite'
-LABELS_FILE = 'checkpoints/V2.0/BirdNET_GLOBAL_1K_V2.0_Labels.txt'
-TRANSLATED_LABELS_PATH = 'labels/V2.0'
+MODEL_PATH = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Model_FP32.tflite'
+MDATA_MODEL_PATH = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_MData_Model_FP32.tflite'
+LABELS_FILE = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt'
+TRANSLATED_LABELS_PATH = 'labels/V2.1'
 
 ##################
 # Audio settings #
@@ -79,10 +79,10 @@ LANGUAGE = 'en'
 # If set to 'purge,' no raw data is stored.
 STORAGE = 'purge'
 
-# Set this to the amount of raw data that should be kept in Gigabytes
-# DO NOT supply the unit
-# Example: STORAGE_LIMIT = 1
-STORAGE_LIMIT = '1'
+# Set this to the amount of raw data that should be kept.
+# Unit options: B(bytes) M(megabytes) G(gigabytes)
+# Example: STORAGE_LIMIT = 1G
+STORAGE_LIMIT = '1G'
 LATITUDE = -26.2309
 LONGITUDE = 28.0583
 WEEK = -1
@@ -114,7 +114,7 @@ SIGMOID_SENSITIVITY = 1.0
 # Minimum confidence score to include in selection table 
 # (be aware: if APPLY_SIGMOID = False, this no longer represents 
 # probabilities and needs to be adjusted)
-MIN_CONFIDENCE = 0.1
+MIN_CONFIDENCE = 0.5
 
 # Number of samples to process at the same time. Higher values can increase
 # processing speed, but will also increase memory usage.
