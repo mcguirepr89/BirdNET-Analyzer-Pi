@@ -10,15 +10,10 @@
 [os-badge]: https://badgen.net/badge/OS/Linux%2C%20Windows/blue
 [species-badge]: https://badgen.net/badge/Species/3327/blue
 
-<<<<<<< HEAD
-## Introduction
-This repo contains BirdNET models and scripts for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
-=======
 # BirdNET-Analyzer-Pi
 
 
 BirdNET analyzer script for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
->>>>>>> 9cd1ab6 (Removed things that do not pertain to BirdNET-Pi)
 
 Feel free to use BirdNET for your acoustic analyses and research. If you do, please cite as:
 
@@ -55,19 +50,6 @@ We also have a discussion forum on Reddit if you have a general question or just
 
 ## Contents
 
-<<<<<<< HEAD
-[Model version update](#model-version-update)  
-[Showroom](#showroom)    
-[Setup (Ubuntu)](#setup-ubuntu)  
-[Setup (Windows)](#setup-windows)  
-[Usage](#usage)  
-[Usage (Docker)](#usage-docker)  
-[Usage (Server)](#usage-server)   
-[Usage (GUI)](#usage-gui)  
-=======
-[Model version update](#model-version-update)
-[Usage](#usage)   
->>>>>>> 9cd1ab6 (Removed things that do not pertain to BirdNET-Pi)
 [Funding](#funding)  
 [Partners](#partners)
 
