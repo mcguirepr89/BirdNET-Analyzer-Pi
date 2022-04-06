@@ -47,7 +47,7 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 [Setup (Windows)](#setup-windows)  
 [Usage](#usage)  
 [Usage (Docker)](#usage-docker)  
-[Usage (Server)](#usage-server) 
+[Usage (Server)](#usage-server)   
 [Funding](#funding)  
 [Partners](#partners)
 
