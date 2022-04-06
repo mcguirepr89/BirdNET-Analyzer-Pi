@@ -53,7 +53,7 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 
 ## Model version update
 
-**V2.1**
+**V2.1, Apr 2022**
 
 - same model architecture as V2.0
 - extended 2022 training data
@@ -207,7 +207,7 @@ Here's a complete list of all command line arguments:
 
 5. When editing your own `species_list.txt` file, make sure to copy species names from the labels file of each model. 
 
-You can find label files in the checkpoints folder, e.g., `checkpoints/V2.0/BirdNET_GLOBAL_1K_V2.0_Labels.txt`. 
+You can find label files in the checkpoints folder, e.g., `checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt`. 
 
 Species names need to consist of `scientific name_common name` to be valid.
 
