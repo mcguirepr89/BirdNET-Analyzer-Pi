@@ -75,17 +75,17 @@ while true;do
       set +e #Turn off the exit on error
       echo "Moving results"
       [ -d $ANALYZED_DIR ] || mkdir -p $ANALYZED_DIR
-      mv -v $file $file_results $ANALYZED_DIR
+      mv $file $file_results $ANALYZED_DIR
       echo "Starting segments"
       segments
       if [[ $STORAGE == 'keep' ]];then
         echo "Storing raw data"
         [ -d $STORAGE_DIR ] || mkdir -p $STORAGE_DIR
-        mv -v $ANALYZED_DIR/* $STORAGE_DIR
+        mv $ANALYZED_DIR/* $STORAGE_DIR
         cleanup
       elif [[ $STORAGE == 'purge' ]];then
         echo "Purging raw data"
-        rm -v $ANALYZED_DIR/*
+        rm $ANALYZED_DIR/*
       fi
     else
       sleep 1
