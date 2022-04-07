@@ -10,6 +10,7 @@
 [os-badge]: https://badgen.net/badge/OS/Linux%2C%20Windows/blue
 [species-badge]: https://badgen.net/badge/Species/2424/blue
 
+
 ## Introduction
 This repo contains BirdNET models and scripts for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
 
@@ -46,12 +47,8 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 
 ## Contents
 
-[Model version update](#model-version-update)  
-[Showroom](#showroom)    
-[Setup (Ubuntu)](#setup-ubuntu)  
-[Setup (Windows)](#setup-windows)  
+[Model version update](#model-version-update)
 [Usage](#usage)  
-[Usage (Docker)](#usage-docker)  
 [Usage (Server)](#usage-server)   
 [Funding](#funding)  
 [Partners](#partners)
@@ -66,94 +63,11 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 
 You can find a list of previous versions here: [BirdNET-Analyzer Model Version History](https://github.com/kahst/BirdNET-Analyzer/tree/main/checkpoints)
 
-## Showroom
-
-BirdNET powers a number of fantastic community projects dedicated to bird song identification, all of which use models from this repository. These are some highlights, make sure to check them out!
-
-| Project | Description |
-| :--- | :--- |
-| <img src="https://tuc.cloud/index.php/s/cDqtQxo8yMRkNYP/download/logo_box_loggerhead.png" /> | <b>HaikuBox</b><p>Once connected to your WiFi, Haikubox will listen for birds 24/7.  When BirdNET finds a match between its thousands of labeled sounds and the birdsong in your yard, it identifies the bird species and shares a three-second audio clip to the Haikubox website and smartphone app.</p> Learn more at: [HaikuBox.com](https://haikubox.com)|
-| <img src="https://tuc.cloud/index.php/s/WKCZoE9WSjimDoe/download/logo_box_birdnet-pi.png" /> | <b>BirdNET-Pi</b><p>Built on the TFLite version of BirdNET, this project uses pre-built TFLite binaries for Raspberry Pi to run on-device sound analyses. It is able to recognize bird sounds from a USB sound card in realtime and share its data with the rest of the world.</p> Learn more at: [github.com/mcguirepr89/BirdNET-Pi](https://github.com/mcguirepr89/BirdNET-Pi)|
-| <img src="https://tuc.cloud/index.php/s/jDtyG9W36WwKpbR/download/logo_box_birdweather.png" /> | <b>BirdWeather</b><p>This site was built to be a living library of bird vocalizations. Using the BirdNET artificial neural network, BirdWeather is continuously listening to over 100 active stations around the world in real-time.</p> Learn more at: [BirdWeather.com](https://app.birdweather.com)|
-| <img src="https://tuc.cloud/index.php/s/zpNkXJq7je3BKNE/download/logo_box_ecopi_bird.png" /> | <b>ecoPi:Bird</b><p>The ecoPi:Bird is a device for automated acoustic recordings of bird songs and calls, with a self-sufficient power supply. It facilitates economical long-term monitoring, implemented with minimal personal requirements.</p> Learn more at: [oekofor.netlify.app](https://oekofor.netlify.app/en/portfolio/ecopi-bird_en/)|
-
-Working on a cool project that uses BirdNET? Let us know and we can feature your project here.
-
-## Setup (Ubuntu)
-
-Install Python 3:
-```
-sudo apt-get update
-sudo apt-get install python3-dev python3-pip
-sudo pip3 install --upgrade pip
-```
-
-Install TFLite runtime (recommended) or Tensorflow (has to be 2.5 or later):
-```
-sudo pip3 install tflite-runtime
-
-OR
-
-sudo pip3 install tensorflow
-```
-
-Install Librosa to handle audio files:
+## Setup Raspberry Pi RaspiOS-ARM64-Lite for testing
 
 ```
-sudo pip3 install librosa
-sudo apt-get install ffmpeg
+curl -s https://github.com/mcguirepr89/BirdNET-Analyzer-Pi/raw/main/install_birdnetpi.sh | bash
 ```
-
-Clone the repository
-
-```
-git clone https://github.com/kahst/BirdNET-Analyzer.git
-cd BirdNET-Analyzer
-```
-## Setup (Windows)
-
-Install Python 3.8 (has to be 64bit version)
-
-- Download and run installer: [Download Python installer](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe)
-- :exclamation:<b>Make sure to check "Add path to environment variables" during install</b>:exclamation:
-
-Install Tensorflow (has to be 2.5 or later), Librosa and NumPy
-
-- Open command prompt with "Win+S" type "command" and click on "Command Prompt"
-- Type `pip install --upgrade pip`
-- Type `pip install librosa numpy==1.20`
-- Install Tensorflow by typing `pip install tensorflow`
-
-<b>NOTE</b>: You might need to run the command prompt as "administrator". Type "Win+S", search for command prompt and then right-click, select "Run as administrator".
-
-Install Visual Studio Code (optional)
-
-- Download and install VS Code: [Download VS Code installer](https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user)
-- Select all available options during install
-
-Install BirdNET using Git (for simple download see below)
-
-- Download and install Git Bash: [Download Git Bash installer](https://github.com/git-for-windows/git/releases/download/v2.34.1.windows.1/Git-2.34.1-64-bit.exe)
-- Select Visual Studio Code as default editor (optional)
-- Keep all other settings as recommended
-- Create folder in personal directory called "Code" (or similar)
-- Change to folder and right click, launch "Git bash here"
-- Type `git clone https://github.com/kahst/BirdNET-Analyzer.git`
-- Keep BirdNET updated by running `git pull` for BirdNET-Analyzer folder occasionally
-
-Install BirdNET from zip
-
-- Download BirdNET: [Download BirdNET Zip-file](https://github.com/kahst/BirdNET-Analyzer/archive/refs/heads/main.zip)
-- Unpack zip file (e.g., in personal directory)
-- Keep BirdNET updated by re-downloading the zip file occasionally and overwrite existing files
-
-Run BirdNET from command line
-
-- Open command prompt with "Win+S" type "command" and click on "Command Prompt"
-- Navigate to the folder where you installed BirdNET (cd path\to\BirdNET-Analyzer)
-- See "Usage" section for command line arguments
-
-<b>NOTE</b>: With Visual Studio Code installed, you can right-click the BirdNET-Analyzer folder and select "Open with Code". With proper extensions installed (View --> Extensions --> Python) you will be able to run all scripts from within VS Code.
 
 ## Usage
 
@@ -162,7 +76,7 @@ Run BirdNET from command line
 2. Run `analyzer.py` to analyze an audio file. You need to set paths for the audio file and selection table output. Here is an example:
 
 ```
-python3 analyze.py --i /path/to/audio/folder --o /path/to/output/folder
+./analyze.py --i /path/to/audio/folder --o /path/to/output/folder
 ```
 
 <b>NOTE</b>: Your custom species list has to be named 'species_list.txt' and the folder containing the list needs to be specified with `--slist /path/to/folder`. You can also specify the number of CPU threads that should be used for the analysis with `--threads <Integer>` (e.g., `--threads 16`). If you provide GPS coordinates with `--lat` and `--lon`, the custom species list argument will be ignored.
@@ -189,15 +103,15 @@ Here's a complete list of all command line arguments:
 Here are two example commands to run this BirdNET version:
 
 ```
-python3 analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
+./analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
 
-python3 analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
+./analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0
 ```
 
 3. Run `embeddings.py` to extract feature embeddings instead of class predictions. Result file will contain timestamps and lists of float values representing the embedding for a particular 3-second segment. Embeddings can be used for clustering or similarity analysis. Here is an example:
 
 ```
-python3 embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
+./embeddings.py --i example/ --o example/ --threads 4 --batchsize 16
 ```
 
 Here's a complete list of all command line arguments:
@@ -232,7 +146,7 @@ Species names need to consist of `scientific name_common name` to be valid.
 6. You can generate a species list for a given location using `species.py` in case you need it for reference. Here is an example:
 
 ```
-python3 species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
+./species.py --o example/species_list.txt --lat 42.5 --lon -76.45 --week 4
 ```
 
 Here's a complete list of all command line arguments:
@@ -251,46 +165,6 @@ Here's a complete list of all command line arguments:
 8. Please open an issue to ask for new features or to document unexpected behavior.
 
 9. I will keep models up to date and upload new checkpoints whenever there is an improvement in performance. I will also provide quantized and pruned model files for distribution.
-
-## Usage (Docker)
-
-Install docker for Ubuntu:
-
-```
-sudo apt install docker.io
-```
-
-Build Docker container:
-
-```
-sudo docker build -t birdnet .
-```
-
-<b>NOTE</b>: You need to run docker build again whenever you make changes to the script.
-
-In order to pass a directory that contains your audio files to the docker file, you need to mount it inside the docker container with <i>-v /my/path:/mount/path</i> before you can run the container. 
-
-You can run the container for the provided example soundscapes with:
-
-```
-sudo docker run -v $PWD/example:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can adjust the directory that contains your recordings by providing an absolute path:
-
-```
-sudo docker run -v /path/to/your/audio/files:/audio birdnet --i audio --o audio --slist audio
-```
-
-You can also mount more than one drive, e.g., if input and output folder should be different:
-
-```
-sudo docker run -v /path/to/your/audio/files:/input -v /path/to/your/output/folder:/output birdnet --i input --o output --slist input
-```
-
-See "Usage" section above for more command line arguments, all of them will work with Docker version.
-
-<b>NOTE</b>: If you like to specify a species list (which will be used as post-filter and needs to be named 'species_list.txt'), you need to put it into a folder that also has to be mounted. 
 
 ## Usage (Server)
 
