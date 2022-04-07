@@ -144,7 +144,6 @@ def findSegments(afile, rfile):
             end = float(d[1])
             species = d[3]
             confidence = float(d[4])
-
         # Check if confidence is high enough
         if confidence >= cfg.MIN_CONFIDENCE:
             segments.append({'audio': afile, 'start': start, 'end': end, 'species': species, 'confidence': confidence})
@@ -192,7 +191,7 @@ def extractSegments(item):
                     os.makedirs(outpath)
 
                 # Save segment
-                seg_name = '{}_{:.3f}_{}_{}.wav'.format(seg['species'], seg['confidence'], seg_cnt, seg['audio'].split(os.sep)[-1].rsplit('.', 1)[0])
+                seg_name = '{}_{:.3f}_{}.wav'.format(seg['species'].replace(" ", "_"), seg['confidence'], seg['audio'].split(os.sep)[-1].rsplit('.', 1)[0])
                 seg_path = os.path.join(outpath, seg_name)
 #                 print(outpath,seg_name)
                 audio.saveSignal(seg_sig, seg_path)

@@ -67,6 +67,9 @@ SEGMENTS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Segments'
 # Storage Directory path (see STORAGE below for more info)
 STORAGE_DIR = '/home/pi/BirdNET-Analyzer-Pi/Storage'
 
+# SQLite Database path
+DATABASE_PATH = 'home/pi/BirdNET-Analyzer-Pi/birds.db'
+
 #####################
 # Metadata and user #
 #      settings     #
@@ -77,7 +80,7 @@ LANGUAGE = 'en'
 # Raw data storage option. If set to 'keep' the system will store the
 # amount of data defined in the STORAGE_LIMIT variable directly below.
 # If set to 'purge,' no raw data is stored.
-STORAGE = 'keep'
+STORAGE = 'purge'
 
 # Set this to the amount of raw data that should be kept.
 # Unit options: B(bytes) M(megabytes) G(gigabytes)
@@ -114,7 +117,7 @@ SIGMOID_SENSITIVITY = 1.0
 # Minimum confidence score to include in selection table 
 # (be aware: if APPLY_SIGMOID = False, this no longer represents 
 # probabilities and needs to be adjusted)
-MIN_CONFIDENCE = 0.5
+MIN_CONFIDENCE = 0.2
 
 # Number of samples to process at the same time. Higher values can increase
 # processing speed, but will also increase memory usage.
@@ -158,6 +161,7 @@ def getConfig():
         'ANALYZED_DIR': ANALYZED_DIR,
         'SEGMENTS_DIR': SEGMENTS_DIR,
         'STORAGE_DIR': STORAGE_DIR,
+        'DATABASE_PATH': DATABASE_PATH,
         'LANGUAGE': LANGUAGE,
         'STORAGE': STORAGE,
         'STORAGE_LIMIT': STORAGE_LIMIT,
@@ -202,6 +206,7 @@ def setConfig(c):
     global ANALYZED_DIR
     global SEGMENTS_DIR
     global STORAGE_DIR
+    global DATABASE_PATH
     global LANGUAGE
     global STORAGE
     global STORAGE_LIMIT
@@ -243,7 +248,8 @@ def setConfig(c):
     ANALYZED_DIR = c['ANALYZED_DIR']
     SEGMENTS_DIR = c['SEGMENTS_DIR']
     STORAGE_DIR = c['STORAGE_DIR']
-    LANGUAGE = 'en'
+    DATABASE_PATH = c['DATABASE_PATH']
+    LANGUAGE = c['LANGUAGE']
     STORAGE = c['STORAGE']
     STORAGE_LIMIT = c['STORAGE_LIMIT']
     LATITUDE = c['LATITUDE']

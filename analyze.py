@@ -14,6 +14,8 @@ import numpy as np
 import config as cfg
 import audio
 import model
+import sqlite3
+from sqlite3 import Error
 
 def clearErrorLog():
 
@@ -86,34 +88,64 @@ def saveResultFile(r, path, afile_path):
 
     for timestamp in sorted(r):
         rstring = ''
-        tstring = ''
         for c in r[timestamp]:                
             start, end = timestamp.split('-')
-            if c[1] > 0.01:
-                label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
-                tstring += '{},{},{},{},{:.4f}\n'.format(
-                    start,
-                    end,
-                    label.split('_')[0],
-                    label.split('_')[1],
-                    c[1])
-                print(tstring)
             if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):
                 label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
-                rstring += '{},{},{},{},{:.4f}\n'.format(
+                confscore = '{:.3f}'.format(c[1])
+                rstring += '{},{},{},{},{}\n'.format(
                     start,
                     end,
                     label.split('_')[0],
                     label.split('_')[1],
-                    c[1])
+                    confscore)
+                sourcefile = args.i.split('/')[5]
+                filename = 'Segments/' + label.split('_')[1] + '/' + label.split('_')[1].replace(" ", "_") + '_' + confscore + '_' + args.i.split('/')[5]
+                conn = None
+                try:
+                    conn = sqlite3.connect(cfg.DATABASE_PATH)
+                    cur = conn.cursor()
+                    entryDate = str(sourcefile.split('_')[0])
+                    entryTime = str(sourcefile.split('_')[1].replace(".wav", ""))
+                    try:
+                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (entryDate, entryTime, label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename))
+                        conn.commit()
+                    except Error as e:
+                        print(e)
+                        cur.execute("CREATE TABLE IF NOT EXISTS detections (\
+                            Date DATE,\
+                            Time TIME,\
+                            Sci_Name VARCHAR(100) NOT NULL,\
+                            Com_Name VARCHAR(100) NOT NULL,\
+                            Confidence FLOAT,\
+                            Lat FLOAT,\
+                            Lon FLOAT,\
+                            Cutoff FLOAT,\
+                            Week INT,\
+                            Sens FLOAT,\
+                            Overlap FLOAT,\
+                            File_Name VARCHAR(100) NOT NULL)")
+                        conn.commit()
+                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (entryDate, entryTime, label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename))
+                        conn.commit()
+                except Error as e:
+                    print(e)
+                finally:
+                  if conn:
+                      conn.close()
+             
+        
+                print("\n\nSuccess!!\n\n")
 
-        # Write result string to file
+        # Write result string to file and database
         if len(rstring) > 0:
             out_string += rstring
 
     # Save as file
     with open(path, 'w') as rfile:
         rfile.write(out_string)
+        print(out_string)
+
 
 def getRawAudioFromFile(fpath):
 
@@ -262,7 +294,7 @@ if __name__ == '__main__':
     parser.add_argument('--sensitivity', type=float, default=1.0, help='Detection sensitivity; Higher values result in higher sensitivity. Values in [0.5, 1.5]. Defaults to 1.0.')
     parser.add_argument('--min_conf', type=float, default=0.1, help='Minimum confidence threshold. Values in [0.01, 0.99]. Defaults to 0.1.')
     parser.add_argument('--overlap', type=float, default=0.0, help='Overlap of prediction segments. Values in [0.0, 2.9]. Defaults to 0.0.')
-    parser.add_argument('--rtype', default='table', help='Specifies output format. Values in [\'table\', \'audacity\', \'r\', \'csv\']. Defaults to \'table\' (Raven selection table).')
+    parser.add_argument('--rtype', default='csv', help='Specifies output format. Values in [\'table\', \'audacity\', \'r\', \'csv\']. Defaults to \'table\' (Raven selection table).')
     parser.add_argument('--threads', type=int, default=4, help='Number of CPU threads.')
     parser.add_argument('--batchsize', type=int, default=1, help='Number of samples to process at the same time. Defaults to 1.')
     parser.add_argument('--locale', default='en', help='Locale for translated species common names. Values in [\'af\', \'de\', \'it\', ...] Defaults to \'en\'.')
@@ -370,4 +402,3 @@ if __name__ == '__main__':
     # python3 analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
     # python3 analyze.py --i example/soundscape.wav --o example/soundscape.BirdNET.selection.table.txt --slist example/species_list.txt --threads 8
     # python3 analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0 --rtype table --locale de
-    
