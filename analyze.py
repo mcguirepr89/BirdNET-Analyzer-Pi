@@ -89,12 +89,118 @@ def saveResultFile(r, path, afile_path):
     # Selection table
     out_string = ''
 
-    # CSV output file
-    header = 'Start (s),End (s),Scientific name,Common name,Confidence\n'
+    if cfg.RESULT_TYPE == 'table':
 
-    # Write header
-    out_string += header
+        # Raven selection header
+        header = 'Selection\tView\tChannel\tBegin Time (s)\tEnd Time (s)\tLow Freq (Hz)\tHigh Freq (Hz)\tSpecies Code\tCommon Name\tConfidence\n'
+        selection_id = 0
 
+        # Write header
+        out_string += header
+        
+        # Extract valid predictions for every timestamp
+        for timestamp in sorted(r):
+            rstring = ''
+            start, end = timestamp.split('-')
+            for c in r[timestamp]:
+                if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):
+                    selection_id += 1
+                    label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
+                    rstring += '{}\tSpectrogram 1\t1\t{}\t{}\t{}\t{}\t{}\t{}\t{:.4f}\n'.format(
+                        selection_id, 
+                        start, 
+                        end, 
+                        150, 
+                        12000, 
+                        cfg.CODES[c[0]], 
+                        label.split('_')[1], 
+                        c[1])
+
+            # Write result string to file
+            if len(rstring) > 0:
+                out_string += rstring
+
+    elif cfg.RESULT_TYPE == 'audacity':
+
+        # Audacity timeline labels
+        for timestamp in sorted(r):
+            rstring = ''
+            for c in r[timestamp]:
+                if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):
+                    label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
+                    rstring += '{}\t{}\t{:.4f}\n'.format(
+                        timestamp.replace('-', '\t'), 
+                        label.replace('_', ', '), 
+                        c[1])
+
+            # Write result string to file
+            if len(rstring) > 0:
+                out_string += rstring
+
+    elif cfg.RESULT_TYPE == 'r':
+
+        # Output format for R
+        header = 'filepath,start,end,scientific_name,common_name,confidence,lat,lon,week,overlap,sensitivity,min_conf,species_list,model'
+        out_string += header
+
+        for timestamp in sorted(r):
+            rstring = ''
+            start, end = timestamp.split('-')
+            for c in r[timestamp]:
+                if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):                    
+                    label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
+                    rstring += '\n{},{},{},{},{},{:.4f},{:.4f},{:.4f},{},{},{},{},{},{}'.format(
+                        afile_path,
+                        start,
+                        end,
+                        label.split('_')[0],
+                        label.split('_')[1],
+                        c[1],
+                        cfg.LATITUDE,
+                        cfg.LONGITUDE,
+                        cfg.WEEK,
+                        cfg.SIG_OVERLAP,
+                        (1.0 - cfg.SIGMOID_SENSITIVITY) + 1.0,
+                        cfg.MIN_CONFIDENCE,
+                        cfg.SPECIES_LIST_FILE,
+                        os.path.basename(cfg.MODEL_PATH)
+                    )
+            # Write result string to file
+            if len(rstring) > 0:
+                out_string += rstring
+
+    else:
+
+        # CSV output file
+        header = 'Start (s),End (s),Scientific name,Common name,Confidence\n'
+
+        # Write header
+        out_string += header
+
+        for timestamp in sorted(r):
+            rstring = ''
+            for c in r[timestamp]:                
+                start, end = timestamp.split('-')
+                if c[1] > cfg.MIN_CONFIDENCE and c[0] in cfg.CODES and (c[0] in cfg.SPECIES_LIST or len(cfg.SPECIES_LIST) == 0):
+                    label = cfg.TRANSLATED_LABELS[cfg.LABELS.index(c[0])]
+                    rstring += '{},{},{},{},{:.4f}\n'.format(
+                        start,
+                        end,
+                        label.split('_')[0],
+                        label.split('_')[1],
+                        c[1])
+
+            # Write result string to file
+            if len(rstring) > 0:
+                out_string += rstring
+
+    # Save as file
+    with open(path, 'w') as rfile:
+        rfile.write(out_string)
+
+
+
+def saveSQLFile(r, path, afile_path):
     for timestamp in sorted(r):
         rstring = ''
         for c in r[timestamp]:                
@@ -144,16 +250,9 @@ def saveResultFile(r, path, afile_path):
                       conn.close()
              
         
-                print("\n\nSuccess!!\n\n")
+                print("\n\nSuccess!!\n\n")    
 
-        # Write result string to file and database
-        if len(rstring) > 0:
-            out_string += rstring
 
-    # Save as file
-    with open(path, 'w') as rfile:
-        rfile.write(out_string)
-        print(out_string)
 
 
 
@@ -280,8 +379,10 @@ def analyzeFile(item):
             else:
                 rtype = '.BirdNET.results.csv'
             saveResultFile(results, os.path.join(cfg.OUTPUT_PATH, rpath.rsplit('.', 1)[0] + rtype), fpath)
+            saveSQLFile(results, os.path.join(cfg.OUTPUT_PATH, rpath.rsplit('.', 1)[0] + rtype), fpath)
         else:
-            saveResultFile(results, cfg.OUTPUT_PATH, fpath)        
+            saveResultFile(results, cfg.OUTPUT_PATH, fpath)
+            saveSQLFile(results, cfg.OUTPUT_PATH, fpath)        
     except:
 
         # Print traceback
@@ -317,7 +418,7 @@ if __name__ == '__main__':
     parser.add_argument('--sensitivity', type=float, default=1.0, help='Detection sensitivity; Higher values result in higher sensitivity. Values in [0.5, 1.5]. Defaults to 1.0.')
     parser.add_argument('--min_conf', type=float, default=0.1, help='Minimum confidence threshold. Values in [0.01, 0.99]. Defaults to 0.1.')
     parser.add_argument('--overlap', type=float, default=0.0, help='Overlap of prediction segments. Values in [0.0, 2.9]. Defaults to 0.0.')
-    parser.add_argument('--rtype', default='csv', help='Specifies output format. Values in [\'table\', \'audacity\', \'r\', \'csv\']. Defaults to \'table\' (Raven selection table).')
+    parser.add_argument('--rtype', default='table', help='Specifies output format. Values in [\'table\', \'audacity\', \'r\', \'csv\']. Defaults to \'table\' (Raven selection table).')
     parser.add_argument('--threads', type=int, default=4, help='Number of CPU threads.')
     parser.add_argument('--batchsize', type=int, default=1, help='Number of samples to process at the same time. Defaults to 1.')
     parser.add_argument('--locale', default='en', help='Locale for translated species common names. Values in [\'af\', \'de\', \'it\', ...] Defaults to \'en\'.')
@@ -386,7 +487,7 @@ if __name__ == '__main__':
     # Set result type
     cfg.RESULT_TYPE = args.rtype.lower()    
     if not cfg.RESULT_TYPE in ['table', 'audacity', 'r', 'csv']:
-        cfg.RESULT_TYPE = 'csv'
+        cfg.RESULT_TYPE = 'table'
 
     # Set number of threads
     if os.path.isdir(cfg.INPUT_PATH):
@@ -420,3 +521,4 @@ if __name__ == '__main__':
     # python3 analyze.py --i example/ --o example/ --slist example/ --min_conf 0.5 --threads 4
     # python3 analyze.py --i example/soundscape.wav --o example/soundscape.BirdNET.selection.table.txt --slist example/species_list.txt --threads 8
     # python3 analyze.py --i example/ --o example/ --lat 42.5 --lon -76.45 --week 4 --sensitivity 1.0 --rtype table --locale de
+

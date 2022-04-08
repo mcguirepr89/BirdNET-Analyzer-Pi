@@ -86,9 +86,9 @@ STORAGE = 'purge'
 # Unit options: B(bytes) M(megabytes) G(gigabytes)
 # Example: STORAGE_LIMIT = 1G
 STORAGE_LIMIT = '750M'
-LATITUDE = -1
-LONGITUDE = -1
-WEEK = -1
+LATITUDE = -26
+LONGITUDE = 28
+WEEK = 13
 LOCATION_FILTER_THRESHOLD = 0.03
 
 ######################
@@ -117,7 +117,7 @@ SIGMOID_SENSITIVITY = 1.0
 # Minimum confidence score to include in selection table 
 # (be aware: if APPLY_SIGMOID = False, this no longer represents 
 # probabilities and needs to be adjusted)
-MIN_CONFIDENCE = 0.2
+MIN_CONFIDENCE = 0.5
 
 # Number of samples to process at the same time. Higher values can increase
 # processing speed, but will also increase memory usage.
