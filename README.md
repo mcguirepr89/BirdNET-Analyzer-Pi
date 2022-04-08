@@ -1,3 +1,7 @@
+<h1 align="center">BirdNET-Analyzer</h1>
+<p align="center">Automated scientific audio data processing and bird ID.</p>
+<p align="center"><img src="https://tuc.cloud/index.php/s/xwKqoCmRDKzBCDZ/download/logo_box_birdnet.png" width="500px" /></p>
+
 [![CC BY-NC-SA 4.0][license-badge]][cc-by-nc-sa] 
 ![Supported OS][os-badge]
 ![Number of species][species-badge]
@@ -6,10 +10,9 @@
 [os-badge]: https://badgen.net/badge/OS/Linux%2C%20Windows/blue
 [species-badge]: https://badgen.net/badge/Species/2424/blue
 
-# BirdNET-Analyzer-Pi
 
-
-BirdNET analyzer script for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
+## Introduction
+This repo contains BirdNET models and scripts for processing large amounts of audio data or single audio files. This is the most advanced version of BirdNET for acoustic analyses and we will keep this repository up-to-date with new models and improved interfaces to enable scientists with no CS background to run the analysis.
 
 Feel free to use BirdNET for your acoustic analyses and research. If you do, please cite as:
 
@@ -45,13 +48,14 @@ Want to use BirdNET to analyze a large dataset? Don't hesitate to contact us: cc
 ## Contents
 
 [Model version update](#model-version-update)
-[Usage](#usage)   
+[Usage](#usage)  
+[Usage (Server)](#usage-server)   
 [Funding](#funding)  
 [Partners](#partners)
 
 ## Model version update
 
-**V2.1**
+**V2.1, Apr 2022**
 
 - same model architecture as V2.0
 - extended 2022 training data
@@ -135,7 +139,7 @@ Here's a complete list of all command line arguments:
 
 5. When editing your own `species_list.txt` file, make sure to copy species names from the labels file of each model. 
 
-You can find label files in the checkpoints folder, e.g., `checkpoints/V2.0/BirdNET_GLOBAL_1K_V2.0_Labels.txt`. 
+You can find label files in the checkpoints folder, e.g., `checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt`. 
 
 Species names need to consist of `scientific name_common name` to be valid.
 
@@ -161,6 +165,58 @@ Here's a complete list of all command line arguments:
 8. Please open an issue to ask for new features or to document unexpected behavior.
 
 9. I will keep models up to date and upload new checkpoints whenever there is an improvement in performance. I will also provide quantized and pruned model files for distribution.
+
+## Usage (Server)
+
+You can host your own analysis service and API by launching the `server.py` script. This will allow you to send files to this server, store submitted files, analyse them and send detection results back to a client. This could be a local service, running on a desktop PC, or a remote server. The API can be accessed locally or remotely through a browser or Python client (or any other client implementation).
+
+1. Install one additional package with `pip3 install bottle`.
+
+2. Start the server with `python3 server.py`. You can also specify a host name or IP and port number, e.g., `python3 server.py --host localhost --port 8080`.
+
+Here's a complete list of all command line arguments:
+
+```
+--host, Host name or IP address of API endpoint server. Defaults to '0.0.0.0'.
+--port, Port of API endpoint server. Defaults to 8080.    
+--spath, Path to folder where uploaded files should be stored. Defaults to '/uploads'.
+--threads, Number of CPU threads for analysis. Defaults to 4.
+--locale, Locale for translated species common names. Values in ['af', 'de', 'it', ...] Defaults to 'en'.
+```
+
+<b>NOTE</b>: The server is single-threaded, so you'll need to start multiple instances for higher throughput. This service is intented for short audio files (e.g., 1-10 seconds).
+
+3. Query the API with a client. You can use the provided Python client or any other client implementation. Request payload needs to be `multipart/form-data` with the following fields: `audio` for raw audio data as byte code, and `meta` for additional information on the audio file. Take a look at our example client implementation in the `client.py` script.
+
+This script will read an audio file, generate metadata from command line arguments and send it to the server. The server will then analyze the audio file and send back the detection results which will be stored as a JSON file.
+
+Here's a complete list of all command line arguments:
+
+```
+--host, Host name or IP address of API endpoint server.
+--port, Port of API endpoint server.     
+--i, Path to file that should be analyzed.  
+--o, Path to result file. Leave blank to store with audio file.  
+--lat, Recording location latitude. Set -1 to ignore.
+--lon, Recording location longitude. Set -1 to ignore.
+--week, Week of the year when the recording was made. Values in [1, 48] (4 weeks per month). Set -1 for year-round species list.
+--overlap, Overlap of prediction segments. Values in [0.0, 2.9]. Defaults to 0.0.
+--sensitivity, Detection sensitivity; Higher values result in higher sensitivity. Values in [0.5, 1.5]. Defaults to 1.0.
+--pmode, Score pooling mode. Values in ['avg', 'max']. Defaults to 'avg'. 
+--num_results, Number of results per request.
+--sf_thresh, Minimum species occurrence frequency threshold for location filter. Values in [0.01, 0.99]. Defaults to 0.03.
+--save, Define if files should be stored on server. Values in [True, False]. Defaults to False.  
+```
+
+4. Parse results from the server. The server will send back a JSON response with the detection results. The response also contains a `msg` field, indicating `success` or `error`. Results consist of a sorted list of (species, score) tuples.
+
+This is an example response:
+
+```
+{"msg": "success", "results": [["Poecile atricapillus_Black-capped Chickadee", 0.7889], ["Spinus tristis_American Goldfinch", 0.5028], ["Junco hyemalis_Dark-eyed Junco", 0.4943], ["Baeolophus bicolor_Tufted Titmouse", 0.4345], ["Haemorhous mexicanus_House Finch", 0.2301]]}
+```
+
+<b>NOTE</b>: Let us know if you have any questions, suggestions, or feature requests. Also let us know when hosting an analysis service - we would love to give it a try.
 
 ## Funding
 
