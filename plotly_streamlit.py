@@ -31,12 +31,6 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-col1,col2,col3 = st.columns([20,20,20])
-
-col1.title('BirdNET-Pi', anchor=None)
-col2.image('/home/pi/BirdNET-Pi/homepage/images/bird.png')
-col3.text('')
-
 
 @st.cache(hash_funcs={Connection: id})
 def get_connection(path:str):
