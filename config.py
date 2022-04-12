@@ -86,9 +86,9 @@ STORAGE = 'purge'
 # Unit options: B(bytes) M(megabytes) G(gigabytes)
 # Example: STORAGE_LIMIT = 1G
 STORAGE_LIMIT = '750M'
-LATITUDE = -26
-LONGITUDE = 28
-WEEK = 13
+LATITUDE = -1
+LONGITUDE = -1
+WEEK = -1
 LOCATION_FILTER_THRESHOLD = 0.03
 
 ######################
