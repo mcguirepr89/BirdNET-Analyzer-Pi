@@ -3,10 +3,10 @@ set -x
 my_dir=/home/pi/BirdNET-Analyzer-Pi
 configpy=${my_dir}/config.py
 source <(grep -ve '^$' -e '^#'  <(sed 's/ //g' $configpy | sed '/Getandset/q'))
+RECS_DIR=~/BirdNET-Analyzer-Pi/$RECS_DIR
 
 [ -z $RECORDING_LENGTH ] && RECORDING_LENGTH=15
-[ -z $CHANNELS] && CHANNELS=2
-[ -z $RECS_DIR] && RECS_DIR=/home/pi/BirdNET-Analyzer-Pi/Raw
+[ -z $CHANNELS ] && CHANNELS=2
 
 if ! pulseaudio --check;then pulseaudio --start;fi
 
