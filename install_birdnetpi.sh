@@ -112,12 +112,12 @@ ExecStart=/bin/bash -c "/usr/bin/avahi-publish -a -R %I $(hostname -I |cut -d' '
 [Install]
 WantedBy=multi-user.target
 EOF
-  sudo ln -sf $HOME/BirdNET-Pi/templates/avahi-alias@.service /usr/lib/systemd/system
+  sudo ln -sf $my_dir/templates/avahi-alias@.service /usr/lib/systemd/system
   sudo systemctl enable --now avahi-alias@"$(hostname)".local.service
 }
 
 install_streamlit() {
-  cat << EOF > $my_dir/templates/birdnet_stats.service
+  cat << EOF > $my_dir/templates/streamlit.service
 [Unit]
 Description=Streamlit Statistics
 [Service]
@@ -129,8 +129,8 @@ ExecStart=$my_dir/birdnet/bin/streamlit run $my_dir/plotly_streamlit.py --server
 [Install]
 WantedBy=multi-user.target
 EOF
-  sudo ln -sf $my_dir/templates/birdnet_stats.service /usr/lib/systemd/system
-  sudo systemctl enable birdnet_stats.service
+  sudo ln -sf $my_dir/templates/streamlit.service /usr/lib/systemd/system
+  sudo systemctl enable streamlit.service
 }
 
 install_Caddyfile() {
