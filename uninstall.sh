@@ -5,7 +5,7 @@ set -x
 my_dir=$(realpath $(dirname $0))
 
 echo "Removing all services"
-sudo systemctl disable --now birdnet_analysis birdnet_recording weather caddy
+sudo systemctl disable --now birdnet_analysis birdnet_recording weather caddy avahi-alias@$(hostname).local.service
 
 echo "Removing database"
 rm $my_dir/birds.db
