@@ -56,19 +56,19 @@ AUDIO_FMT = 'mp3'
 #      OS Paths     #
 #####################
 # Recording Directory path
-RECS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Raw'
+RECS_DIR = 'Raw'
 
 # Analyzed Directory path
-ANALYZED_DIR = '/home/pi/BirdNET-Analyzer-Pi/Analyzed'
+ANALYZED_DIR = 'Analyzed'
 
 # Segments Directory path
-SEGMENTS_DIR = '/home/pi/BirdNET-Analyzer-Pi/Segments'
+SEGMENTS_DIR = 'Segments'
 
 # Storage Directory path (see STORAGE below for more info)
-STORAGE_DIR = '/home/pi/BirdNET-Analyzer-Pi/Storage'
+STORAGE_DIR = 'Storage'
 
 # SQLite Database path
-DATABASE_PATH = 'home/pi/BirdNET-Analyzer-Pi/birds.db'
+DATABASE_PATH = 'birds.db'
 
 #####################
 # Metadata and user #
