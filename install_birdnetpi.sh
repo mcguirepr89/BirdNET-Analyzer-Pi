@@ -98,11 +98,47 @@ EOF
   sudo systemctl enable weather.service
 }
 
+install_avahi_alias() {
+  cat << 'EOF' > $my_dir/templates/avahi-alias@.service
+[Unit]
+Description=Publish %I as alias for %H.local via mdns
+After=network.target network-online.target
+Requires=network-online.target
+[Service]
+Restart=always
+RestartSec=3
+Type=simple
+ExecStart=/bin/bash -c "/usr/bin/avahi-publish -a -R %I $(hostname -I |cut -d' ' -f1)"
+[Install]
+WantedBy=multi-user.target
+EOF
+  sudo ln -sf $HOME/BirdNET-Pi/templates/avahi-alias@.service /usr/lib/systemd/system
+  sudo systemctl enable --now avahi-alias@"$(hostname)".local.service
+}
+
+install_streamlit() {
+  cat << EOF > $my_dir/templates/birdnet_stats.service
+[Unit]
+Description=Streamlit Statistics
+[Service]
+Restart=on-failure
+RestartSec=5
+Type=simple
+User=$USER
+ExecStart=$my_dir/birdnet/bin/streamlit run $my_dir/plotly_streamlit.py --server.address localhost --server.baseUrlPath "/stats"
+[Install]
+WantedBy=multi-user.target
+EOF
+  sudo ln -sf $my_dir/templates/birdnet_stats.service /usr/lib/systemd/system
+  sudo systemctl enable birdnet_stats.service
+}
+
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
 http://$(hostname).local {
   root * $(realpath $(dirname $SEGMENTS_DIR))
   file_server browse
+  reverse_proxy /stats* localhost:8501
 }
 EOF
   sudo ln -sf $my_dir/templates/Caddyfile /etc/caddy/Caddyfile
@@ -149,6 +185,9 @@ install_recording_service
 
 echo "Installing Weather Service"
 install_weather_service
+
+echo "Installing the avahi-alias@.service"
+install_avahi_alias
 
 echo "Installing the Caddyfile"
 install_Caddyfile
