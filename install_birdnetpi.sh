@@ -23,6 +23,7 @@ install_birdnet() {
   pip3 install --upgrade -r $my_dir/requirements.txt
   deactivate
   sed -si "1 i\\#\!$my_dir/birdnet/bin/python3" $my_dir/*.py
+  sed -i '1d' $my_dir/config.py
 }
 
 auto-detect_settings() {
