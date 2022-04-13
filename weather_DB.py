@@ -1,4 +1,3 @@
-#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 # command line to get weather for a particular Lat/Lon -
 # Suggest run once an hour?
 #  python weather_DB.py --lat XX.XX --lon XX.XX
