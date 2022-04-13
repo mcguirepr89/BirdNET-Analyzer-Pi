@@ -186,6 +186,9 @@ install_recording_service
 echo "Installing Weather Service"
 install_weather_service
 
+echo "Installing Streamlit"
+install_streamlit
+
 echo "Installing the avahi-alias@.service"
 install_avahi_alias
 
