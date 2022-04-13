@@ -3,8 +3,8 @@
 set -x
 
 # Environment
-USER=pi
-HOME=/home/pi
+USER=$USER
+HOME=$HOME
 my_dir=$HOME/BirdNET-Analyzer-Pi
 configpy=$my_dir/config.py
 
@@ -22,13 +22,13 @@ install_birdnet() {
 
 auto-detect_settings() {
   LATITUDE="LATITUDE = $(curl -s4 ifconfig.co/json | awk '/lat/ {print $2}' | tr -d ',')"
-  sed -i "s/LATITUDE = -1/$LATITUDE/" ${configpy}
+  sed -i "s/LATITUDE = -1/$LATITUDE/" $configpy
   echo $LATITUDE
   LONGITUDE="LONGITUDE = $(curl -s4 ifconfig.co/json | awk '/lon/ {print $2}' | tr -d ',')"
-  sed -i "s/LONGITUDE = -1/$LONGITUDE/" ${configpy}
+  sed -i "s/LONGITUDE = -1/$LONGITUDE/" $configpy
   echo $LONGITUDE
   LANGUAGE="LANGUAGE = \'$(echo $LANG|cut -d'_' -f1)\'"
-  sed -i "s/LANGUAGE =.*/$LANGUAGE/" ${configpy}
+  sed -i "s/LANGUAGE =.*/$LANGUAGE/" $configpy
   echo $LANGUAGE
 
   source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
@@ -43,7 +43,7 @@ Description=BirdNET Analysis
 Restart=always
 Type=simple
 RestartSec=2
-User=${USER}
+User=$USER
 ExecStart=$my_dir/birdnet_analysis.sh
 StandardOutput=append:$my_dir/birdnet_analysis.log
 StandardError=append:$my_dir/birdnet_analysis.log
@@ -63,7 +63,7 @@ Environment=XDG_RUNTIME_DIR=/run/user/1000
 Restart=always
 Type=simple
 RestartSec=3
-User=${USER}
+User=$USER
 ExecStart=$my_dir/birdnet_recording.sh
 StandardOutput=append:$my_dir/birdnet_recording.log
 StandardError=append:$my_dir/birdnet_recording.log

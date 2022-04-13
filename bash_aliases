@@ -4,6 +4,7 @@ alias rerc='source ~/.bash_aliases'
 alias stop_services='sudo systemctl stop birdnet\*'
 
 alias restart_services='sudo systemctl restart birdnet_recording && sudo systemctl restart birdnet_analysis'
+alias logs='tail -f ~/BirdNET-Analyzer-Pi/birdnet_analysis.log'
 
 function full_reload() {
   stop_services &&
@@ -17,4 +18,3 @@ function full_reload() {
   logs
 }
 
-alias logs='tail -f ~/BirdNET-Analyzer-Pi/birdnet_analysis.log'
