@@ -1,4 +1,3 @@
-#!/home/pi/BirdNET-Analyzer-Pi/birdnet/bin/python3
 import numpy as np
 
 import config as cfg

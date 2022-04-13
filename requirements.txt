@@ -6,3 +6,4 @@ tflite-runtime
 streamlit
 plotly
 pandas
+bottle
