@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # A quick uninstaller
+set -x
 
 my_dir=$(realpath $(dirname $0))
 
@@ -15,4 +16,6 @@ rm -drf $my_dir/Analyzed
 rm -drf $my_dir/Segments
 [ -d $my_dir/Storage ] && rm -drfv $my_dir/Storage
 
-sed -si '1d' $my_dir/*.py
+for file in $my_dir/*.py;do
+  [ $file != "$my_dir/config.py" ] && sed -si '1d' $file
+done
