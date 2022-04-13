@@ -3,6 +3,7 @@
 # Suggest run once an hour?
 #  python weather_DB.py --lat XX.XX --lon XX.XX
 
+import os
 import argparse
 import requests
 from datetime import datetime
@@ -10,7 +11,9 @@ import sqlite3
 from sqlite3 import Connection
 import config as cfg
 
-URI_SQLITE_DB = cfg.DATABASE_PATH
+userDir = os.path.expanduser('~')
+bnpDir = userDir + '/BirdNET-Analyzer-Pi/'
+URI_SQLITE_DB = bnpDir + cfg.DATABASE_PATH
 
 def get_connection(path:str):
     return sqlite3.connect(path,check_same_thread=False)
@@ -37,7 +40,7 @@ except:
     weather = now_date+";"+now_time+str(";N/A")*11
     
 print(weather)
-with open('weather.txt','a') as rfile:
+with open(bnpDir+'weather.txt','a') as rfile:
     rfile.write('\n')
     rfile.write(weather)
 
