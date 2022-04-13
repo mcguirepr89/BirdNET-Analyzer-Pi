@@ -14,3 +14,5 @@ rm -drf $my_dir/Raw
 rm -drf $my_dir/Analyzed
 rm -drf $my_dir/Segments
 [ -d $my_dir/Storage ] && rm -drfv $my_dir/Storage
+
+sed -si '1d' $my_dir/*.py
