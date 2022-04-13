@@ -10,7 +10,7 @@ import sqlite3
 from sqlite3 import Connection
 import config as cfg
 
-URI_SQLITE_DB = "/"+cfg.DATABASE_PATH
+URI_SQLITE_DB = cfg.DATABASE_PATH
 
 def get_connection(path:str):
     return sqlite3.connect(path,check_same_thread=False)

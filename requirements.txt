@@ -1,0 +1,8 @@
+pip
+setuptools
+wheel
+librosa
+tflite-runtime
+streamlit
+plotly
+pandas

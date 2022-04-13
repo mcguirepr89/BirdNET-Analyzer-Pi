@@ -32,6 +32,7 @@ auto-detect_settings() {
   echo $LANGUAGE
 
   source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
+  SEGMENTS_DIR=~/BirdNET-Analyzer-Pi/$SEGMENTS_DIR
 }
 
 install_birdnet_analysis() {

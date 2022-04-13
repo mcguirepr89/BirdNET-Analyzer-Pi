@@ -424,6 +424,11 @@ if __name__ == '__main__':
     cfg.MDATA_MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.MDATA_MODEL_PATH)
     cfg.CODES_FILE = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.CODES_FILE)
     cfg.ERROR_LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.ERROR_LOG_FILE)
+    cfg.RECS_DIR = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.RECS_DIR)
+    cfg.ANALYZED_DIR = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.ANALYZED_DIR)
+    cfg.SEGMENTS_DIR = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.SEGMENTS_DIR)
+    cfg.STORAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.STORAGE_DIR)
+    cfg.DATABASE_PATH = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.DATABASE_PATH)
 
     # Load eBird codes, labels
     cfg.CODES = loadCodes()
