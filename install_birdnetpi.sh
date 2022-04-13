@@ -99,12 +99,17 @@ EOF
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
 http://$(hostname).local {
-  root * $SEGMENTS_DIR
+  root * $(realpath $(dirname $SEGMENTS_DIR))
   file_server browse
 }
 EOF
   sudo ln -sf $my_dir/templates/Caddyfile /etc/caddy/Caddyfile
   sudo systemctl reload caddy
+}
+
+install_bash_aliases() {
+  ln -sf $my_dir/bash_aliases $HOME/.bash_aliases
+  source $HOME/.bash_aliases
 }
 
 set_login() {
@@ -145,6 +150,9 @@ install_weather_service
 
 echo "Installing the Caddyfile"
 install_Caddyfile
+
+echo "Installing bash_aliases"
+install_bash_aliases
 
 echo "Configuring System Settings"
 set_login

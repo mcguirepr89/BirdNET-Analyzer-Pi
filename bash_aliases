@@ -1,9 +1,10 @@
 alias vimrc='vim ~/.bash_aliases'
 alias rerc='source ~/.bash_aliases'
 
-alias stop_services='sudo systemctl stop birdnet\*'
+alias stop_services='sudo systemctl stop birdnet\* weather'
+alias start_services='sudo systemctl start birdnet\* weather'
 
-alias restart_services='sudo systemctl restart birdnet_recording && sudo systemctl restart birdnet_analysis'
+alias restart_services='sudo systemctl restart birdnet_recording birdnet_analysis weather caddy'
 alias logs='tail -f ~/BirdNET-Analyzer-Pi/birdnet_analysis.log'
 
 function full_reload() {
