@@ -74,6 +74,24 @@ EOF
   sudo systemctl enable birdnet_recording.service
 }
 
+install_weather_service() {
+  cat << EOF > $my_dir/templates/weather.service
+[Unit]
+Description=Weather Service
+[Service]
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Restart=always
+Type=simple
+RestartSec=3600
+User=$USER
+ExecStart=$my_dir/weather_DB.py
+[Install]
+WantedBy=multi-user.target
+EOF
+  sudo ln -sf $my_dir/templates/weather.service /usr/lib/systemd/system
+  sudo systemctl enable weather.service
+}
+
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
 http://$(hostname).local {
@@ -117,6 +135,9 @@ install_birdnet_analysis
 
 echo "Installing Recording Service"
 install_recording_service
+
+echo "Installing Weather Service"
+install_weather_service
 
 echo "Installing the Caddyfile"
 install_Caddyfile
