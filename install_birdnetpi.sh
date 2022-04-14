@@ -171,11 +171,11 @@ sudo apt update && sudo apt -y upgrade
 echo "Installing dependencies"
 sudo apt -y install --no-install-recommends ${dependencies[@]}
 
-echo "Auto-detecting some settings"
-auto-detect_settings
-
 echo "Installing BirdNET-Analyzer"
 install_birdnet
+
+echo "Auto-detecting some settings"
+auto-detect_settings
 
 echo "Install BirdNET Analysis Service"
 install_birdnet_analysis
