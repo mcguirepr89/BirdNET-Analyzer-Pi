@@ -1,3 +1,6 @@
+import os
+import sys
+import config as cfg
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -8,7 +11,8 @@ from pathlib import Path
 import sqlite3
 from sqlite3 import Connection
 
-URI_SQLITE_DB = "/home/pi/BirdNET-Analyzer-Pi/birds.db"
+cfg.DATABASE_PATH = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), cfg.DATABASE_PATH)
+URI_SQLITE_DB = cfg.DATABASE_PATH
 
 st.set_page_config(layout='wide')
 
