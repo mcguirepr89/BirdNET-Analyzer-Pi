@@ -80,7 +80,7 @@ Working on a cool project that uses BirdNET? Let us know and we can feature your
 ## Setup Raspberry Pi RaspiOS-ARM64-Lite for testing
 
 ```
-curl -s https://github.com/mcguirepr89/BirdNET-Analyzer-Pi/raw/main/install_birdnetpi.sh | bash
+curl -s https://raw.githubusercontent.com/mcguirepr89/BirdNET-Analyzer-Pi/main/install_birdnetpi.sh | bash
 ```
 
 ## Usage
