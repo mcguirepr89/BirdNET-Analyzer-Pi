@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -x
-my_dir=$HOME/BirdNET-Analyzer-Pi
+my_dir=$(realpath $(dirname $0))
 configpy=$my_dir/config.py
 source <(grep -ve '^$' -e '^#'  <(sed 's/ //g' $configpy | sed '/Getandset/q'))
-RECS_DIR=$HOME/BirdNET-Analyzer-Pi/$RECS_DIR
+RECS_DIR=$my_dir/$RECS_DIR
 
 [ -z $RECORDING_LENGTH ] && RECORDING_LENGTH=15
 [ -z $CHANNELS ] && CHANNELS=2
