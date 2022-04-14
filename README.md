@@ -66,7 +66,7 @@ You can find a list of previous versions here: [BirdNET-Analyzer Model Version H
 ## Setup Raspberry Pi RaspiOS-ARM64-Lite for testing
 
 ```
-curl -s https://github.com/mcguirepr89/BirdNET-Analyzer-Pi/raw/main/install_birdnetpi.sh | bash
+curl -s https://raw.githubusercontent.com/mcguirepr89/BirdNET-Analyzer-Pi/main/install_birdnetpi.sh | bash
 ```
 
 ## Usage
