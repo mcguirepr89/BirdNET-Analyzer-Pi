@@ -3,7 +3,7 @@
 #set -x #Uncomment to debug
 
 #variables
-my_dir=$HOME/BirdNET-Analyzer-Pi
+my_dir=$(realpath $(dirname $0))
 configpy=${my_dir}/config.py
 analyzepy=${my_dir}/analyze.py
 segmentspy=${my_dir}/segments.py
