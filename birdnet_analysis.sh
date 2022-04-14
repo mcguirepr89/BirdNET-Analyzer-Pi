@@ -10,11 +10,11 @@ segmentspy=${my_dir}/segments.py
 
 
 source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
-RECS_DIR=~/BirdNET-Analyzer-Pi/$RECS_DIR
-ANALYZED_DIR=~/BirdNET-Analyzer-Pi/$ANALYZED_DIR
-SEGMENTS_DIR=~/BirdNET-Analyzer-Pi/$SEGMENTS_DIR
-STORAGE_DIR=~/BirdNET-Analyzer-Pi/$STORAGE_DIR
-DATABASE_PATH=~/BirdNET-Analyzer-Pi/$DATABASE_PATH
+RECS_DIR=$my_dir/$RECS_DIR
+ANALYZED_DIR=$my_dir/$ANALYZED_DIR
+SEGMENTS_DIR=$my_dir/$SEGMENTS_DIR
+STORAGE_DIR=$my_dir/$STORAGE_DIR
+DATABASE_PATH=$my_dir/$DATABASE_PATH
 
 get_week() {
   week_of_year="$(echo "($(date +%m)-1) * 4" | bc -l)"
