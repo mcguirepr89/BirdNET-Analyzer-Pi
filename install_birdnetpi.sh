@@ -38,7 +38,7 @@ auto-detect_settings() {
   echo $LANGUAGE
 
   source <(grep -ve '^$' -e '^#' <(sed 's/ //g' $configpy | sed '/Getandset/q'))
-  SEGMENTS_DIR=~/BirdNET-Analyzer-Pi/$SEGMENTS_DIR
+  SEGMENTS_DIR=$my_dir/$SEGMENTS_DIR
 }
 
 install_birdnet_analysis() {
@@ -136,7 +136,7 @@ EOF
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
 http://$(hostname).local {
-  root * $(realpath $(dirname $SEGMENTS_DIR))
+  root * $my_dir
   file_server browse
   reverse_proxy /stats* localhost:8501
 }
