@@ -135,7 +135,7 @@ EOF
 
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
-http://$(hostname).local {
+http:// {
   root * $my_dir
   file_server browse
   reverse_proxy /stats* localhost:8501
