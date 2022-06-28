@@ -9,7 +9,7 @@ my_dir=$HOME/BirdNET-Analyzer-Pi
 configpy=$my_dir/config.py
 
 caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
-dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils pulseaudio bc caddy=2.4.5 sox)
+dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils avahi-utils pulseaudio bc caddy=2.4.5 sox)
 
 install_birdnet() {
   git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git $my_dir
