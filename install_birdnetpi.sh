@@ -125,7 +125,7 @@ Restart=on-failure
 RestartSec=5
 Type=simple
 User=$USER
-ExecStart=$my_dir/birdnet/bin/streamlit run $my_dir/plotly_streamlit.py --server.address localhost --server.baseUrlPath "/stats"
+ExecStart=$my_dir/birdnet/bin/streamlit run $my_dir/plotly_streamlit.py --browser.gatherUsageStats false --server.address localhost --server.baseUrlPath "/stats"
 [Install]
 WantedBy=multi-user.target
 EOF
