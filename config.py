@@ -10,10 +10,10 @@ RANDOM_SEED = 42
 ##########################
 
 #MODEL_PATH = 'checkpoints/V1.4/BirdNET_1K_V1.4_Model' # This will load the protobuf model
-MODEL_PATH = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Model_FP32.tflite'
-MDATA_MODEL_PATH = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_MData_Model_FP32.tflite'
-LABELS_FILE = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt'
-TRANSLATED_LABELS_PATH = 'labels/V2.1'
+MODEL_PATH = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_Model_FP32.tflite'
+MDATA_MODEL_PATH = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_MData_Model_FP16.tflite'
+LABELS_FILE = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_Labels.txt'
+TRANSLATED_LABELS_PATH = 'labels/V2.2'
 
 ##################
 # Audio settings #
@@ -86,8 +86,8 @@ STORAGE = 'purge'
 # Unit options: B(bytes) M(megabytes) G(gigabytes)
 # Example: STORAGE_LIMIT = 1G
 STORAGE_LIMIT = '750M'
-LATITUDE = -1
-LONGITUDE = -1
+LATITUDE = 38.8263
+LONGITUDE = -77.2111
 WEEK = -1
 LOCATION_FILTER_THRESHOLD = 0.03
 
