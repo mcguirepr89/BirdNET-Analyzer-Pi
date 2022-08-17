@@ -254,11 +254,8 @@ def saveSQLFile(r, path, afile_path):
 
 
 
-
 def getSortedTimestamps(results):
     return sorted(results, key=lambda t: float(t.split('-')[0]))
-
-
 def getRawAudioFromFile(fpath):
 
     # Open file

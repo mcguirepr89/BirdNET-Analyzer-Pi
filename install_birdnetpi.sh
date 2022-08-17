@@ -14,7 +14,8 @@ export my_dir=$my_dir
 export configpy=$configpy
 
 caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
-dependencies=(git python3-dev python3-venv python3-pip ffmpeg caddy sqlite3 alsa-utils pulseaudio)
+dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils avahi-utils pulseaudio bc caddy sox)
+
 install_birdnet() {
   git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git $my_dir
   cd $my_dir
