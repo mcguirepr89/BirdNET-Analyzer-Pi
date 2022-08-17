@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Detection;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/segments', function () {
+    return Detection::all();
 });
 
 Route::middleware([

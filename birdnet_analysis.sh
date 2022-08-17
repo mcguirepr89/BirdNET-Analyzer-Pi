@@ -62,7 +62,7 @@ cleanup() {
   STORAGE_LIMIT=$(numfmt --from=iec $STORAGE_LIMIT)
   if [ $space -gt $STORAGE_LIMIT ];then
     until [ $space -le $STORAGE_LIMIT ];do
-      find $STORAGE_DIR -type f | sort -r | tail -n10 | xargs rm -fv
+      find -L $STORAGE_DIR -type f | sort -r | tail -n10 | xargs rm -fv
       space=$(du -b $STORAGE_DIR|awk '{print $1}')
     done
   fi
@@ -71,11 +71,11 @@ cleanup() {
 get_week
 
 while true;do
-  for file in $(find $RECS_DIR -type f -name '*.wav'|sort);do
+  for file in $(find -L $RECS_DIR -type f -name '*.wav'|sort);do
     file_results=${file//.wav/.BirdNET.results.csv}
     file_length=$(soxi -D $file|cut -d'.' -f1)
     if [ $file_length -ge $RECORDING_LENGTH ];then
-      sleep 1
+      sleep 1.5
       echo "Starting Analysis"
       set -e #Exit if anything fails
       analyze

@@ -68,7 +68,7 @@ SEGMENTS_DIR = 'Segments'
 STORAGE_DIR = 'Storage'
 
 # SQLite Database path
-DATABASE_PATH = 'birds.db'
+DATABASE_PATH = 'birdnet_pi_app/database/database.sqlite'
 
 #####################
 # Metadata and user #

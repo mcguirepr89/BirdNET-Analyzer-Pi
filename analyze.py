@@ -219,28 +219,28 @@ def saveSQLFile(r, path, afile_path):
                 try:
                     conn = sqlite3.connect(cfg.DATABASE_PATH)
                     cur = conn.cursor()
-                    entryDate = str(sourcefile.split('_')[0])
-                    entryTime = str(sourcefile.split('_')[1].replace(".wav", ""))
+                    created_at = datetime.datetime.now()
+                    updated_at = datetime.datetime.now()
                     try:
-                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (entryDate, entryTime, label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename))
+                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename, created_at, updated_at))
                         conn.commit()
                     except Error as e:
                         print(e)
                         cur.execute("CREATE TABLE IF NOT EXISTS detections (\
-                            Date DATE,\
-                            Time TIME,\
-                            Sci_Name VARCHAR(100) NOT NULL,\
-                            Com_Name VARCHAR(100) NOT NULL,\
-                            Confidence FLOAT,\
-                            Lat FLOAT,\
-                            Lon FLOAT,\
-                            Cutoff FLOAT,\
-                            Week INT,\
-                            Sens FLOAT,\
-                            Overlap FLOAT,\
-                            File_Name VARCHAR(100) NOT NULL)")
+                            sci_name VARCHAR(100) NOT NULL,\
+                            com_name VARCHAR(100) NOT NULL,\
+                            confidence FLOAT,\
+                            latitude FLOAT,\
+                            longitude FLOAT,\
+                            cutoff FLOAT,\
+                            week INT,\
+                            sens FLOAT,\
+                            overlap FLOAT,\
+                            file_name VARCHAR(100) NOT NULL,\
+                            created_at DATETIME NULL,\
+                            updated_at DATETIME NULL)")
                         conn.commit()
-                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (entryDate, entryTime, label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename))
+                        cur.execute("INSERT INTO detections VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (label.split('_')[0], label.split('_')[1], confscore, float(cfg.LATITUDE), float(cfg.LONGITUDE), float(cfg.MIN_CONFIDENCE), int(args.week), float(cfg.SIGMOID_SENSITIVITY), float(cfg.SIG_OVERLAP), filename, created_at, updated_at))
                         conn.commit()
                 except Error as e:
                     print(e)
