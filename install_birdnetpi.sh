@@ -45,7 +45,7 @@ Restart=always
 Type=simple
 RestartSec=2
 User=$USER
-ExecStart=$PYTHON_VENV $my_dir/birdnet_analysis.sh
+ExecStart=$my_dir/birdnet_analysis.sh
 StandardOutput=append:$my_dir/birdnet_analysis.log
 StandardError=append:$my_dir/birdnet_analysis.log
 [Install]

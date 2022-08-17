@@ -5,6 +5,7 @@
 #variables
 my_dir=$(realpath $(dirname $0))
 configpy=${my_dir}/config.py
+pyvenv=${my_dir}/birdnet/bin/python3
 analyzepy=${my_dir}/analyze.py
 segmentspy=${my_dir}/segments.py
 
@@ -31,7 +32,7 @@ get_week() {
 }
 
 analyze() {
-  $analyzepy \
+  $pyvenv $analyzepy \
      --i $file \
      --o $file_results \
      --week $week \
@@ -47,7 +48,7 @@ analyze() {
 }
 
 segments() {
-  $segmentspy \
+  $pyvenv $segmentspy \
      --audio $ANALYZED_DIR/ \
      --results $ANALYZED_DIR/ \
      --o $SEGMENTS_DIR \
