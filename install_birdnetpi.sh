@@ -14,7 +14,7 @@ export my_dir=$my_dir
 export configpy=$configpy
 
 caddy_url="https://dl.cloudsmith.io/public/caddy/stable/setup.deb.sh"
-dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils avahi-utils pulseaudio bc caddy sox)
+dependencies=(git python3-dev python3-venv python3-pip ffmpeg sqlite3 alsa-utils avahi-utils pulseaudio bc caddy sox apt-transport-https lsb-release ca-certificates curl)
 
 install_birdnet() {
   git clone https://github.com/mcguirepr89/BirdNET-Analyzer-Pi.git $my_dir
@@ -145,6 +145,23 @@ EOF
   sudo systemctl reload caddy
 }
 
+install_laravel_depends() {
+  sudo apt -y install php8.1-fpm php8.1-curl php8.1-mbstring php8.1-sqlite3 phpunit
+}
+
+install_composer() {
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+  php composer-setup.php
+  php -r "unlink('composer-setup.php');"
+  sudo mv composer.phar /usr/local/bin/composer
+}
+
+install_nodejs() {
+  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+}
+
 install_bash_aliases() {
   ln -sf $my_dir/bash_aliases $HOME/.bash_aliases
   source $HOME/.bash_aliases
@@ -164,6 +181,9 @@ EOF
 
 echo "Adding dependency repos to apt-sources"
 curl -1sLf "$caddy_url" | sudo -E bash
+sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+sudo apt-get update
 
 echo "Updating system"
 sudo apt update && sudo apt -y upgrade
@@ -194,6 +214,15 @@ install_avahi_alias
 
 echo "Installing the Caddyfile"
 install_Caddyfile
+
+echo "Install Laravel Dependencies"
+install_laravel_depends
+
+echo "Install Composer"
+install_composer
+
+echo "Install NodeJS"
+install_nodejs
 
 echo "Installing bash_aliases"
 install_bash_aliases

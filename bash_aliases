@@ -5,7 +5,7 @@ alias stop_services='sudo systemctl stop birdnet\* weather'
 alias start_services='sudo systemctl start birdnet\* weather'
 
 alias restart_services='sudo systemctl restart birdnet_recording birdnet_analysis weather caddy streamlit avahi-alias@$(hostname).local.service'
-alias logs='tail -f ~/BirdNET-Analyzer-Pi/birdnet_analysis.log'
+alias logs='tail -f /dev/shm/birdnet_analysis.log'
 
 function full_reload() {
   stop_services &&
