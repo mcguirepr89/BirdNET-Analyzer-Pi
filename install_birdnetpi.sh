@@ -18,8 +18,7 @@ install_birdnet() {
   source ./birdnet/bin/activate
   pip3 install --upgrade -r $my_dir/requirements.txt
   deactivate
-  sed -si "1 i\\#\!$my_dir/birdnet/bin/python3" $my_dir/*.py
-  sed -i '1d' $my_dir/config.py
+  PYTHON_VENV="$my_dir/birdnet/bin/python3"
 }
 
 auto-detect_settings() {
@@ -46,7 +45,7 @@ Restart=always
 Type=simple
 RestartSec=2
 User=$USER
-ExecStart=$my_dir/birdnet_analysis.sh
+ExecStart=$PYTHON_VENV $my_dir/birdnet_analysis.sh
 StandardOutput=append:$my_dir/birdnet_analysis.log
 StandardError=append:$my_dir/birdnet_analysis.log
 [Install]
@@ -86,7 +85,7 @@ Restart=always
 Type=simple
 RestartSec=3600
 User=$USER
-ExecStart=$my_dir/weather_DB.py
+ExecStart=$PYTHON_VENV $my_dir/weather_DB.py
 [Install]
 WantedBy=multi-user.target
 EOF
