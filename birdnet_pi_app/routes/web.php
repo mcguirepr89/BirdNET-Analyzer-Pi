@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Detection;
+use App\Http\Controllers\DetectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/segments', function () {
-    return Detection::all();
-});
+Route::resource('detections', DetectionController::class);
 
 Route::middleware([
     'auth:sanctum',

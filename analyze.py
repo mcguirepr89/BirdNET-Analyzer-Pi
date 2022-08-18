@@ -214,7 +214,7 @@ def saveSQLFile(r, path, afile_path):
                     label.split('_')[1],
                     confscore)
                 sourcefile = args.i.split('/')[5]
-                filename = 'Segments/' + label.split('_')[1] + '/' + label.split('_')[1].replace(" ", "_") + '_' + confscore + '_' + args.i.split('/')[5]
+                filename = 'storage/Segments/' + label.split('_')[1] + '/' + label.split('_')[1].replace(" ", "_") + '_' + confscore + '_' + args.i.split('/')[5]
                 conn = None
                 try:
                     conn = sqlite3.connect(cfg.DATABASE_PATH)
@@ -256,14 +256,16 @@ def saveSQLFile(r, path, afile_path):
 
 def getSortedTimestamps(results):
     return sorted(results, key=lambda t: float(t.split('-')[0]))
+
 def getRawAudioFromFile(fpath):
 
     # Open file
     sig, rate = audio.openAudioFile(fpath, cfg.SAMPLE_RATE)
-
+    print("sig",len(sig))
+    print("rate",rate)
     # Split into raw audio chunks
-    chunks = audio.splitSignal(sig, rate, cfg.SIG_LENGTH, cfg.SIG_OVERLAP, cfg.SIG_MINLEN)
 
+    chunks = audio.splitSignal(sig, rate, cfg.SIG_LENGTH, cfg.SIG_OVERLAP, cfg.SIG_MINLEN)
     return chunks
 
 def predict(samples):
@@ -322,7 +324,6 @@ def analyzeFile(item):
 
             # Predict
             p = predict(samples)
-
             # Add to results
             for i in range(len(samples)):
 
@@ -337,9 +338,11 @@ def analyzeFile(item):
 
                 # Sort by score
                 p_sorted =  sorted(p_labels.items(), key=operator.itemgetter(1), reverse=True)
-
+                #print("p_sorted",p_sorted[:10])
                 # Store top 5 results and advance indicies
                 results[str(s_start) + '-' + str(s_end)] = p_sorted
+
+                print(str(s_start)+","+str(s_end),"=", p_sorted[:2])
 
             # Clear batch
             samples = []

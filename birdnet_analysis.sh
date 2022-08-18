@@ -73,8 +73,7 @@ get_week
 while true;do
   for file in $(find -L $RECS_DIR -type f -name '*.wav'|sort);do
     file_results=${file//.wav/.BirdNET.results.csv}
-    file_length=$(soxi -D $file|cut -d'.' -f1)
-    if [ $file_length -ge $RECORDING_LENGTH ];then
+    if ! lsof $file &>/dev/null;then
       sleep 1.5
       echo "Starting Analysis"
       set -e #Exit if anything fails

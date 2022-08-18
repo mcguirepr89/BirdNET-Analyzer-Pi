@@ -15,7 +15,8 @@ class DetectionController extends Controller
      */
     public function index()
     {
-        //
+	$detections = Detection::all();
+	return view('detections')->with(compact('detections'));
     }
 
     /**

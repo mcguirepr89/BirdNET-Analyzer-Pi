@@ -9,7 +9,6 @@ RANDOM_SEED = 42
 # Model paths and config #
 ##########################
 
-#MODEL_PATH = 'checkpoints/V1.4/BirdNET_1K_V1.4_Model' # This will load the protobuf model
 MODEL_PATH = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_Model_FP32.tflite'
 MDATA_MODEL_PATH = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_MData_Model_FP16.tflite'
 LABELS_FILE = 'checkpoints/V2.2/BirdNET_GLOBAL_3K_V2.2_Labels.txt'
