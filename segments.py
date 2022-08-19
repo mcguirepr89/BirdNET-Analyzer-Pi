@@ -143,10 +143,10 @@ def findSegments(afile, rfile):
             end = float(d[1])
             species = d[3]
             confidence = float(d[4])
-            confidence1 = f({confidence})
+            confidence = float(f"{confidence:.3f}")
         # Check if confidence is high enough
         if confidence >= cfg.MIN_CONFIDENCE:
-            segments.append({'audio': afile, 'start': start, 'end': end, 'species': species, 'confidence': confidence1})
+            segments.append({'audio': afile, 'start': start, 'end': end, 'species': species, 'confidence': confidence})
 
     return segments
 
