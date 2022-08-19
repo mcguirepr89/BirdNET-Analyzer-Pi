@@ -15,9 +15,7 @@ use App\Http\Controllers\DetectionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', DetectionController::class, ['names' => 'detections']);
 
 Route::resource('detections', DetectionController::class);
 

@@ -16,17 +16,19 @@ class DetectionFactory extends Factory
      */
     public function definition()
     {
+        $scientific_name = ucwords(fake()->word(1)." ".fake()->word(1));
+        $common_name = ucwords(fake()->word(1,true)." ".fake()->word(1,true));
         return [
-	    'sci_name' => 'Funk Dobbiest',
-	    'com_name' => 'Funky Bird',
-	    'confidence' => '.98',
+	    'sci_name' => $scientific_name,
+	    'com_name' => $common_name,
+	    'confidence' => fake()->randomFloat(4,0,1),
 	    'latitude' => '46.423',
 	    'longitude' => '87.987',
 	    'cutoff' => '0.5',
 	    'week' => '31',
 	    'sensitivity' => '0.5',
 	    'overlap' => '0',
-	    'file_name' => fake()->file
+	    'file_name' => 'storage/Segments/'.$common_name.'/'.$common_name.'.mp3'
         ];
     }
 }

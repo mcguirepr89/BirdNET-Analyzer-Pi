@@ -261,8 +261,7 @@ def getRawAudioFromFile(fpath):
 
     # Open file
     sig, rate = audio.openAudioFile(fpath, cfg.SAMPLE_RATE)
-    print("sig",len(sig))
-    print("rate",rate)
+    
     # Split into raw audio chunks
 
     chunks = audio.splitSignal(sig, rate, cfg.SIG_LENGTH, cfg.SIG_OVERLAP, cfg.SIG_MINLEN)
@@ -338,10 +337,11 @@ def analyzeFile(item):
 
                 # Sort by score
                 p_sorted =  sorted(p_labels.items(), key=operator.itemgetter(1), reverse=True)
-                #print("p_sorted",p_sorted[:10])
+
                 # Store top 5 results and advance indicies
                 results[str(s_start) + '-' + str(s_end)] = p_sorted
 
+                # Print top two predictions per chunk
                 print(str(s_start)+","+str(s_end),"=", p_sorted[:2])
 
             # Clear batch

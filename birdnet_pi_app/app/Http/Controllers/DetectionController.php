@@ -15,8 +15,9 @@ class DetectionController extends Controller
      */
     public function index()
     {
-	$detections = Detection::all();
-	return view('detections')->with(compact('detections'));
+        return view('detections', [
+            'detections' => Detection::orderBy('created_at', 'desc')->paginate(20)
+        ]);
     }
 
     /**
