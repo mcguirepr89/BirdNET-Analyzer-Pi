@@ -16,6 +16,9 @@
                     <x-jet-nav-link href="{{ route('detections.index') }}" :active="request()->routeIs('detections.index')">
                         {{ __('Detections') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="/logs">
+                        {{ __('Live Log') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
@@ -42,13 +45,21 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Account Management -->
+                            <!-- Content -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Content') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('detections.index')}}">
+                                {{ __('Detections') }}
+                            </x-jet-dropdown-link>
+
+                            <!-- Tools -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Tools') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                            <x-jet-dropdown-link href="/logs">
+                                {{ __('Live Log') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -56,6 +67,20 @@
                                     {{ __('API Tokens') }}
                                 </x-jet-dropdown-link>
                             @endif
+
+                            <!-- Settings -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Settings') }}
+                            </div>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-jet-dropdown-link>
+
+
+                            <x-jet-dropdown-link href="{{ route('config_form') }}">
+                                {{ __('Configuration') }}
+                            </x-jet-dropdown-link>
 
                             <div class="border-t border-gray-100"></div>
 
@@ -89,7 +114,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('detections.index') }}" :active="request()->routeIs('detections.index')">
-                {{ __('Dashboard') }}
+                {{ __('Detections') }}
             </x-jet-responsive-nav-link>
         </div>
 

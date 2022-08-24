@@ -1,0 +1,1 @@
+/home/birder/BirdNET-Analyzer-Pi/config.py

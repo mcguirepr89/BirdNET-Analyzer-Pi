@@ -132,8 +132,8 @@ EOF
   sudo systemctl enable --now avahi-alias@"$(hostname)".local.service
 }
 
-install_streamlit() {
-  cat << EOF > $my_dir/templates/streamlit.service
+install_birdnet_stats() {
+  cat << EOF > $my_dir/templates/birdnet_stats.service
 [Unit]
 Description=Streamlit Statistics
 [Service]
@@ -145,9 +145,27 @@ ExecStart=$my_dir/birdnet/bin/streamlit run $my_dir/plotly_streamlit.py --browse
 [Install]
 WantedBy=multi-user.target
 EOF
-  sudo ln -sf $my_dir/templates/streamlit.service /usr/lib/systemd/system
-  sudo systemctl enable streamlit.service
+  sudo ln -sf $my_dir/templates/birdnet_stats.service /usr/lib/systemd/system
+  sudo systemctl enable birdnet_stats.service
 }
+
+install_birdnet_logs() {
+  cat << EOF > $my_dir/templates/birdnet_logs.service
+[Unit]
+Description=BirdNET Logs
+[Service]
+Restart=always
+Type=simple
+RestartSec=2
+User=birder
+ExecStart=ttyd -p 8000 -R -b /logs tail -f /dev/shm/birdnet_analysis.log
+[Install]
+WantedBy=multi-user.target
+EOF
+  sudo ln -sf $my_dir/templates/birdnet_logs.service /usr/lib/systemd/system
+  sudo systemctl enable birdnet_logs.service
+}
+
 
 install_Caddyfile() {
   cat << EOF > $my_dir/templates/Caddyfile
@@ -155,6 +173,7 @@ http:// {
   root * $my_dir
   file_server browse
   reverse_proxy /stats* localhost:8501
+  reverse_proxy /logs* localhost:8000
 }
 EOF
   sudo ln -sf $my_dir/templates/Caddyfile /etc/caddy/Caddyfile
@@ -206,6 +225,9 @@ sudo apt update && sudo apt -y upgrade
 
 echo "Installing dependencies"
 sudo apt -y install --no-install-recommends ${dependencies[@]}
+
+echo "Install bin"
+sudo cp -r $my_dir/bin/* /usr/local/bin
 
 echo "Installing BirdNET-Analyzer"
 install_birdnet

@@ -12,6 +12,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{!! url('assets/tinymce/js/tinymce/tinymce.min.js') !!}" referrerpolicy="origin"></script>
 
         <!-- Styles -->
         @livewireStyles
@@ -31,7 +32,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="h-full">
                 {{ $slot }}
             </main>
         </div>

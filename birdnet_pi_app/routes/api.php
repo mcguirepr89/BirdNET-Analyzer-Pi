@@ -15,10 +15,10 @@ use App\Models\Detection;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/detections/all', function () {
+    return Detection::latest()->get();
 });
 
-Route::get('/segments/all', function () {
-    return Detection::all();
+Route::get('/config', function () {
+    return Configuration::latest()->get();
 });

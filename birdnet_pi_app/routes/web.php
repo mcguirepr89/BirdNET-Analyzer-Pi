@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Detection;
 use App\Http\Controllers\DetectionController;
+use App\Http\Controllers\ConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,9 @@ use App\Http\Controllers\DetectionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::resource('/', DetectionController::class, ['names' => 'detections']);
+Route::fallback(function () {
+	return redirect('/detections');
+});
 
 Route::resource('detections', DetectionController::class);
 
@@ -24,7 +25,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/config', [ConfigController::class, 'show'])->name('show_config');
+    Route::get('/config/edit', [ConfigController::class, 'edit'])->name('edit_config');
+    Route::get('/config/form', [ConfigController::class, 'form'])->name('config_form');
+    Route::post('/config/form', [ConfigController::class, 'write_config'])->name('update_config');
 });

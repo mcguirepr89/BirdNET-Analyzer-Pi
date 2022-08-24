@@ -11,7 +11,7 @@
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
                   Confidence
                 </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
+                <th scope="col" class="hidden sm:block text-sm font-medium text-gray-900 px-6 py-4">
                   Time
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
@@ -28,11 +28,11 @@
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {{ $detection->confidence }}
                 </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ $detection->created_at }}
+                <td class="hidden sm:block text-sm text-gray-900 font-light px-6 py-8 whitespace-nowrap">
+                  {{ $detection->created_at->diffForHumans() }}
                 </td>
-                <td class="flex justify-center text-sm text-gray-900 font-light py-4 whitespace-nowrap">
-                  <audio controls>
+                <td class="text-sm text-gray-900 font-light p-4 whitespace-nowrap">
+                  <audio controls class="mx-auto w-32 md:w-64 lg:w-full ">
                     <source src="{{ $detection->file_name }}" type="audio/mpeg">Listen
                   </audio>
                 </td>
