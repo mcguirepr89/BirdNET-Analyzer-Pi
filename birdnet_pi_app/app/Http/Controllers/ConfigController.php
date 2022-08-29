@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreConfigRequest;
+use App\Http\Requests\UpdateConfigRequest;
+use App\Models\Config;
 
 class ConfigController extends Controller
 {
-
-    public function show()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return view('config.show');
+        return view('config.index');
     }
 
-
-    public function edit()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreConfigRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreConfigRequest $request)
     {
-        return view('config.edit');
+       die('shit don\'t change yet');
     }
 
-
-    public function form()
-    {
-        $settings = parse_ini_string(shell_exec('reformat_config.sh -i /home/birder/BirdNET-Analyzer-Pi/config.py'), true);
-        return view('config.form', [
-            'settings' => $settings
-        ]);
-    }
-
-    public function write_config()
-    {
-        dump(request()->all());
-    }
 }

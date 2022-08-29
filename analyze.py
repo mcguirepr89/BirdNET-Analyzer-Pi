@@ -40,7 +40,6 @@ def parseInputFiles(path, allowed_filetypes=['wav', 'flac', 'mp3', 'ogg', 'm4a']
                 files.append(os.path.join(root, f))
 
     print('Found {} files to analyze'.format(len(files)))
-
     return sorted(files)
 
 def loadCodes():
@@ -246,13 +245,8 @@ def saveSQLFile(r, path, afile_path):
                     print(e)
                 finally:
                   if conn:
-                      conn.close()
-             
-        
-                print("\n\nSuccess!!\n\n")    
-
-
-
+                      conn.close()        
+                print("Success! Detection logged")    
 
 def getSortedTimestamps(results):
     return sorted(results, key=lambda t: float(t.split('-')[0]))
@@ -290,6 +284,13 @@ def analyzeFile(item):
 
     # Status
     print('Analyzing {}'.format(fpath), flush=True)
+    
+    # Create the spectrogram for currently analyzing
+    spec_name = 'currently_analyzing.png'
+    spec_path = os.path.join(cfg.RECS_DIR, spec_name)
+    print(spec_path)
+    os.system("sox '"+fpath+"' -n remix 1 rate 24k spectrogram -a -w Hann -p 2 -t 'Currently Analyzing' -c '"+fpath+"' -o '"+spec_path+"'")
+
 
     # Open audio file and split into 3-second chunks
     chunks = getRawAudioFromFile(fpath)

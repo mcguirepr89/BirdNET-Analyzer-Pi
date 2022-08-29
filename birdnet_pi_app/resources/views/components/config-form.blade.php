@@ -1,4 +1,4 @@
-<x-forms.config-form submit="write_config">
+<x-forms.form submit="write_config">
     <x-slot name="title">
         {{ __('BirdNET Configuration') }}
     </x-slot>
@@ -8,10 +8,10 @@
     </x-slot>
 
     <x-slot name="form">
-        @foreach ( $settings as $setting => $values )
+        @foreach ( $config_vars as $setting => $values )
             <div class="col-span-6 drop-shadow-xl rounded-xl p-2">
                 <div class="text-lg">{{ $setting }}</div>
-                <form action="/config/form" method="POST">
+                <form action="#" method="POST">
                     @csrf
                     @foreach ( $values as $key => $value)
                         <x-jet-label class="pt-6" for="{{ $key }}" value="{{ $key }}" />
@@ -26,4 +26,4 @@
             </div>
         @endforeach
     </x-slot>
-</x-forms.config-form>
+</x-forms.form>

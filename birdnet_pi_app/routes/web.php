@@ -25,8 +25,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/config', [ConfigController::class, 'show'])->name('show_config');
-    Route::get('/config/edit', [ConfigController::class, 'edit'])->name('edit_config');
-    Route::get('/config/form', [ConfigController::class, 'form'])->name('config_form');
-    Route::post('/config/form', [ConfigController::class, 'write_config'])->name('update_config');
+
+    Route::resource('config', ConfigController::class)->only([
+        'index', 'store',
+    ]);
+
 });
+
+// This logs DB queries to storage/logs/laravel.log	
+// \DB::listen(function($sql) {
+//     \Log::info($sql->sql);
+//     \Log::info($sql->bindings);
+//     \Log::info($sql->time);
+// });

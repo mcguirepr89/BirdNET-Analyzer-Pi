@@ -8,22 +8,20 @@
     </x-slot>
 
     <x-slot name="form">
-        @foreach ( $configVars[0] as $setting => $value )
-            @if ($setting != 'id' && !strpos($setting, 'at'))
-            <div class="col-span-6 md:col-span-5 drop-shadow-xl rounded-xl p-2">
-                {{-- <div class="text-lg">{{ $setting }}</div> --}}
-                <form action="#" method="POST">
+        @foreach ( $configVars as $setting => $value )
+            <div class="col-span-6 drop-shadow-xl rounded-xl p-2">
+                <div class="text-lg">{{ $setting }}</div>
+                <form action="/config" method="POST">
                     @csrf
                     <x-jet-label class="pt-6" for="{{ $setting }}" value="{{ $setting }}" />
                     <x-jet-input name="{{ $setting }}" id="{{ $setting }}" type="text" class="mt-1 block w-full" value="{{ $value }}" />
                     <x-jet-input-error for="{{ $setting }}" class="mt-2" />
                     <div class="flex justify-end">
-                    <button type="submit" class=" bg-emerald-400 text-slate-50 hover:text-black mt-5 border py-2 px-6 rounded-xl">Update {{ $setting }}</button>
+                        <button type="submit" class=" bg-emerald-400 text-slate-50 hover:text-black mt-5 border py-2 px-6 rounded-xl">Update {{ $setting }}</button>
                     </div>
                 </form>
-                {{-- <x-jet-section-border /> --}}
+                <x-jet-section-border />
             </div>
-            @endif
         @endforeach
     </x-slot>
 </x-forms.form>

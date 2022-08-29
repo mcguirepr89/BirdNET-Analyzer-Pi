@@ -2,7 +2,7 @@
 # Misc settings #
 #################
 
-# Random seed for gaussian noise
+## Random seed for gaussian noise
 RANDOM_SEED = 42
 
 ##########################
@@ -18,72 +18,71 @@ TRANSLATED_LABELS_PATH = 'labels/V2.2'
 # Audio settings #
 ##################
 
-# The sound card arecord should use for recording. 'default' denotes
-# PulseAudio. ('default' recommended)
+## The sound card arecord should use for recording. 'default' denotes
+## PulseAudio. ('default' recommended)
 REC_CARD = 'default'
 
-# The number of audio channels for recording. Note: This is mostly to ensure
-# you can bring your own soundcard. Inference still only uses 1 audio channel.
+## The number of audio channels for recording. Note: This is mostly to ensure
+## you can bring your own soundcard. Inference still only uses 1 audio channel.
 CHANNELS = 2
 
-# We use a sample rate of 48kHz, so the model input size is 
-# (batch size, 48000 kHz * 3 seconds) = (1, 144000)
-# Recordings will be resampled automatically.
+## We use a sample rate of 48kHz, so the model input size is 
+## (batch size, 48000 kHz * 3 seconds) = (1, 144000)
+## Recordings will be resampled automatically.
 SAMPLE_RATE = 48000 
 
-# We're using 3-second chunks
+## We're using 3-second chunks
 SIG_LENGTH = 3.0 
 
-# Define overlap between consecutive chunks <3.0; 0 = no overlap
+## Define overlap between consecutive chunks <3.0; 0 = no overlap
 SIG_OVERLAP = 0 
 
-# Define minimum length of audio chunk for prediction, 
-# chunks shorter than 3 seconds will be padded with noise
+## Define minimum length of audio chunk for prediction, 
+## chunks shorter than 3 seconds will be padded with noise
 SIG_MINLEN = 3.0 
 
-# The length recordings should be before passing them off to be analyzed.
-# 3 seconds is the minumum, 15 seconds is recommended
+## The length recordings should be before passing them off to be analyzed.
+## 3 seconds is the minumum, 15 seconds is recommended
 RECORDING_LENGTH = 15
 
-# The length of the audio segement that gets extracted as a 'segment'
+## The length of the audio segement that gets extracted as a 'segment'
 SEGMENT_LENGTH = 6
 
-# The audio format for the segments and recording. 
+## The audio format for the segments and recording. 
 AUDIO_FMT = 'mp3'
 
-#####################
-#      OS Paths     #
-#####################
-# Recording Directory path
+############
+# OS Paths #
+############
+## Recording Directory path
 RECS_DIR = 'Raw'
 
-# Analyzed Directory path
+## Analyzed Directory path
 ANALYZED_DIR = 'Analyzed'
 
-# Segments Directory path
+## Segments Directory path
 SEGMENTS_DIR = 'Segments'
 
-# Storage Directory path (see STORAGE below for more info)
+## Storage Directory path (see STORAGE below for more info)
 STORAGE_DIR = 'Storage'
 
-# SQLite Database path
+## SQLite Database path
 DATABASE_PATH = 'birdnet_pi_app/database/database.sqlite'
 
-#####################
-# Metadata and user #
-#      settings     #
-#####################
-# System language settings
+##############################
+# Metadata and user settings #
+##############################
+## System language settings
 LANGUAGE = 'en'
 
-# Raw data storage option. If set to 'keep' the system will store the
-# amount of data defined in the STORAGE_LIMIT variable directly below.
-# If set to 'purge,' no raw data is stored.
+## Raw data storage option. If set to 'keep' the system will store the
+## amount of data defined in the STORAGE_LIMIT variable directly below.
+## If set to 'purge,' no raw data is stored.
 STORAGE = 'purge'
 
-# Set this to the amount of raw data that should be kept.
-# Unit options: B(bytes) M(megabytes) G(gigabytes)
-# Example: STORAGE_LIMIT = 1G
+## Set this to the amount of raw data that should be kept.
+## Unit options: B(bytes) M(megabytes) G(gigabytes)
+## Example: STORAGE_LIMIT = 1G
 STORAGE_LIMIT = '750M'
 LATITUDE = 38.8263
 LONGITUDE = -77.2111
@@ -94,38 +93,38 @@ LOCATION_FILTER_THRESHOLD = 0.03
 # Inference settings #
 ######################
 
-# If None or empty file, no custom species list will be used
-# Note: Entries in this list have to match entries from the LABELS_FILE
-# We use the 2021 eBird taxonomy for species names (Clements list)
+## If None or empty file, no custom species list will be used
+## Note: Entries in this list have to match entries from the LABELS_FILE
+## We use the 2021 eBird taxonomy for species names (Clements list)
 CODES_FILE = 'eBird_taxonomy_codes_2021E.json'
 SPECIES_LIST_FILE = '' 
 
-# File input path and output path for selection tables
+## File input path and output path for selection tables
 INPUT_PATH = ''
 OUTPUT_PATH = ''
 
-# Number of threads to use for inference.
-# Can be as high as number of CPUs in your system
+## Number of threads to use for inference.
+## Can be as high as number of CPUs in your system
 CPU_THREADS = 2
 TFLITE_THREADS = 1 
 
-# False will output logits, True will convert to sigmoid activations
+## False will output logits, True will convert to sigmoid activations
 APPLY_SIGMOID = True 
 SIGMOID_SENSITIVITY = 1.0
 
-# Minimum confidence score to include in selection table 
-# (be aware: if APPLY_SIGMOID = False, this no longer represents 
-# probabilities and needs to be adjusted)
+## Minimum confidence score to include in selection table 
+## (be aware: if APPLY_SIGMOID = False, this no longer represents 
+## probabilities and needs to be adjusted)
 MIN_CONFIDENCE = 0.5
 
-# Number of samples to process at the same time. Higher values can increase
-# processing speed, but will also increase memory usage.
-# Might only be useful for GPU inference.
+## Number of samples to process at the same time. Higher values can increase
+## processing speed, but will also increase memory usage.
+## Might only be useful for GPU inference.
 BATCH_SIZE = 1
 
-# Specifies the output format. 'table' denotes a Raven selection table,
-# 'audacity' denotes a TXT file with the same format as Audacity timeline labels
-# 'csv' denotes a CSV file with start, end, species and confidence.
+## Specifies the output format. 'table' denotes a Raven selection table,
+## 'audacity' denotes a TXT file with the same format as Audacity timeline labels
+## 'csv' denotes a CSV file with start, end, species and confidence.
 RESULT_TYPE = 'csv'
 
 #####################

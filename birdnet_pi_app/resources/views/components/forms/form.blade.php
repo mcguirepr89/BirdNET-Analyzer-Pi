@@ -1,6 +1,6 @@
 @props(['submit'])
 
-<div {{ $attributes->merge(['class' => 'md:grid md:grid-cols-3 md:gap-6 md:p-6 bg-emerald-400 rounded-xl drop-shadow-2xl']) }}>
+<div {{ $attributes->merge(['class' => 'md:grid md:grid-cols-3 md:gap-6 md:p-6 bg-emerald-400 rounded-xl drop-shadow-2xl max-w-7xl']) }}>
     <x-jet-section-title>
         <x-slot name="title">{{ $title }}</x-slot>
         <x-slot name="description">{{ $description }}</x-slot>

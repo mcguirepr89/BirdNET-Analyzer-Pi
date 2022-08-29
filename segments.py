@@ -1,6 +1,7 @@
 import os
 import argparse
 import traceback
+import subprocess
 
 import numpy as np
 from multiprocessing import Pool
@@ -193,9 +194,14 @@ def extractSegments(item):
                 # Save segment
                 seg_name = '{}_{:.3f}_{}.wav'.format(seg['species'].replace(" ", "_"), seg['confidence'], seg['audio'].split(os.sep)[-1].rsplit('.', 1)[0])
                 seg_path = os.path.join(outpath, seg_name)
-#                 print(outpath,seg_name)
+               # print(outpath,seg_name)
                 audio.saveSignal(seg_sig, seg_path)
                 seg_cnt += 1
+
+                # Create the spectrogram
+                spec_name = seg_name.replace('.wav', '.png')
+                spec_path = os.path.join(outpath, spec_name)
+                os.system("sox '"+seg_path+"' -n remix 1 rate 24k spectrogram -a -w Hann -p 2 -t '"+seg['species']+"' -c '"+seg_name+"' -o '"+spec_path+"'")
 
         except:
 
@@ -243,8 +249,6 @@ if __name__ == '__main__':
 #     #Convert file list into dataframe
 #     df=pd.DataFrame(cfg.FILE_LIST[0][1])
 #     print(df)
-    
-    
 #____________________________________________________________________________    
     
     

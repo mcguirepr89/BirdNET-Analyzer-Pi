@@ -15,9 +15,7 @@ class DetectionController extends Controller
      */
     public function index()
     {
-        return view('detections', [
-            'detections' => Detection::latest()->paginate(10)
-        ]);
+        return view('detections');
     }
 
     /**

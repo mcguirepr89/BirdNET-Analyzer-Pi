@@ -9,8 +9,13 @@ class DetectionsTable extends Component
 {
     public function render()
     {
+        // return view('livewire.detections-table', [
+        //     'detections' => Detection::latest()->paginate(10),
+        // ]);
         return view('livewire.detections-table', [
-            'detections' => Detection::latest()->paginate(10),
+            'detections' => Detection::latest()->filter(
+                        request(['search'])
+                    )->paginate(10)->withQueryString()
         ]);
     }
 }

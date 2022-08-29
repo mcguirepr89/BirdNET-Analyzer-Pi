@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Detection;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,8 +17,11 @@ use App\Models\Detection;
 |
 */
 
-Route::get('/detections/all', function () {
-    return Detection::latest()->get();
+Route::get('/detections', function () {
+    //return Detection::latest()->get();
+    return Detection::latest()->filter(
+                    request(['search'])
+                )->withQueryString();
 });
 
 Route::get('/config', function () {

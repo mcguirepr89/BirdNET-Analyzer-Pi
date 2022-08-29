@@ -157,8 +157,8 @@ Description=BirdNET Logs
 Restart=always
 Type=simple
 RestartSec=2
-User=birder
-ExecStart=ttyd -p 8000 -R -b /logs tail -f /dev/shm/birdnet_analysis.log
+User=$USER
+ExecStart=ttyd -p 8000 -R -b /logs tail -f $my_dir/birdnet_analysis.log
 [Install]
 WantedBy=multi-user.target
 EOF
