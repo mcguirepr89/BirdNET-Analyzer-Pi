@@ -226,11 +226,11 @@ sudo apt update && sudo apt -y upgrade
 echo "Installing dependencies"
 sudo apt -y install --no-install-recommends ${dependencies[@]}
 
-echo "Install bin"
-sudo cp -r $my_dir/bin/* /usr/local/bin
-
 echo "Installing BirdNET-Analyzer"
 install_birdnet
+
+echo "Install bin"
+sudo cp -r $my_dir/bin/* /usr/local/bin
 
 echo "Auto-detecting some settings"
 auto-detect_settings
