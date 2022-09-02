@@ -27,7 +27,6 @@ class ConfigController extends Controller
     public function store(StoreConfigRequest $request)
     {
         $config = Config::find(1);
-        dump($config->RANDOM_SEED);
         $validated = $request->validated();
         if($validated)
         {
@@ -74,6 +73,9 @@ class ConfigController extends Controller
             $config->SPECIES_LIST = $validated['SPECIES_LIST'];
             $config->ERROR_LOG_FILE = $validated['ERROR_LOG_FILE'];
             $config->save();
+
+            $flash_message = "Settings updated successfully!";
+            session()->flash('success', "$flash_message");
             return view('config.index');
         }
     }

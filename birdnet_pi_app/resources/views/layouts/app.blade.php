@@ -17,6 +17,9 @@
         <!-- Styles -->
         @livewireStyles
     </head>
+    @if(session()->has('success'))
+    <x-flash/>
+    @endif
     <body class="font-sans antialiased">
         <x-jet-banner />
 
