@@ -4,14 +4,14 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Detection;
+use Livewire\WithPagination;
 
 class DetectionsTable extends Component
 {
+    use WithPagination;
+    
     public function render()
     {
-        // return view('livewire.detections-table', [
-        //     'detections' => Detection::latest()->paginate(10),
-        // ]);
         return view('livewire.detections-table', [
             'detections' => Detection::latest()->filter(
                         request(['search'])

@@ -8,6 +8,7 @@
     <div class="md:py-12">
         <div class="w-full sm:max-w-7xl mx-auto md:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <livewire:currently-analyzing />
                 @if(\App\Models\Detection::count())
                 <livewire:detections-table />
 

@@ -1,7 +1,11 @@
 @php
     use Illuminate\Http\Request;
 @endphp
+@if (isset($_GET['page']) || isset($_GET['search']))
 <div class="flex flex-col">
+@else
+<div wire:poll.visible  class="flex flex-col">
+@endif
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="overflow-hidden">
@@ -26,7 +30,7 @@
                   $spectrogram = str_replace(".wav", ".png", $detection->file_name);
                   @endphp
                   @if (file_exists($spectrogram))
-                      <video class="z-20 bg-black p-3 max-w-full mx-auto rounded shadow-lg" id="spectrogram-video"  poster="<?= $spectrogram;?>" onmouseover="this.setAttribute('controls','controls')" onmouseout="this.removeAttribute('controls')">
+                      <video class="z-20 bg-black p-3 max-w-full mx-auto rounded-lg shadow-2xl" id="spectrogram-video"  poster="<?= $spectrogram;?>" onmouseover="this.setAttribute('controls','controls')" onmouseout="this.removeAttribute('controls')">
                         <source src="{{ $detection->file_name }}" type="audio/mpeg">
                       </video>
                   @else

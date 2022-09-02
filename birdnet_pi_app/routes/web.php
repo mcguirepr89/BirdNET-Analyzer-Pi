@@ -27,7 +27,7 @@ Route::middleware([
 ])->group(function () {
 
     Route::resource('config', ConfigController::class)->only([
-        'index', 'store',
+        'index', 'store'
     ]);
 
 });

@@ -20,7 +20,7 @@ TRANSLATED_LABELS_PATH = 'labels/V2.2'
 
 ## The sound card arecord should use for recording. 'default' denotes
 ## PulseAudio. ('default' recommended)
-REC_CARD = 'default'
+REC_CARD = 'hw:CARD=A96kHz,DEV=0'
 
 ## The number of audio channels for recording. Note: This is mostly to ensure
 ## you can bring your own soundcard. Inference still only uses 1 audio channel.
