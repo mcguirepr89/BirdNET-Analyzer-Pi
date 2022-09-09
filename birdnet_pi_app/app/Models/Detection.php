@@ -17,6 +17,11 @@ class Detection extends Model
                     ->orWhere('sci_name', 'like', '%' . $search . '%')
             )
         );
+        $query->when($filters['file_name'] ?? false, fn($query, $search) =>
+        $query->where(fn($query) =>
+            $query->where('file_name', 'like', '%' . $search . '%')
+        )
+    );
     }
 
 }

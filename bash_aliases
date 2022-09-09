@@ -9,6 +9,7 @@ alias logs='sudo tail -f /dev/shm/birdnet_analysis.log'
 
 alias tinker='cd ~/BirdNET-Analyzer-Pi/birdnet_pi_app;php artisan tinker'
 alias seed='cd ~/BirdNET-Analyzer-Pi/birdnet_pi_app;php artisan migrate:fresh --seed'
+alias db='cd ~/BirdNET-Analyzer-Pi/birdnet_pi_app;php artisan db'
 alias build='cd ~/BirdNET-Analyzer-Pi/birdnet_pi_app;npm run build'
 
 cd ~/BirdNET-Analyzer-Pi

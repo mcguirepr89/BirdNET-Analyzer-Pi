@@ -286,12 +286,16 @@ def analyzeFile(item):
     print('Analyzing {}'.format(fpath), flush=True)
     
     # Create the spectrogram for currently analyzing
-    spec_name = 'currently_analyzing.png'
-    spec_path = os.path.join(cfg.SEGMENTS_DIR, spec_name)
-    print(spec_path)
     now = datetime.datetime.now()
-    current_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    os.system("sox '"+fpath+"' -n remix 1 rate 96k spectrogram -a -w Hann -p 2 -c '"+current_time+"' -o '"+spec_path+"'")
+    current_datetime = now.strftime("%m/%d/%Y, %H:%M:%S")
+    current_time = now.strftime("%m_%d_%Y_%H:%M:%S")
+    spec_name = 'currently_analyzing.png'
+    #spec_name2 = 'currently_analyzing'+current_time+'.png'
+    spec_path = os.path.join(cfg.SEGMENTS_DIR, spec_name)
+    #spec_path2 = os.path.join(cfg.STORAGE_DIR, os.path.basename(fpath).replace(".wav", ".png"))
+    #print(spec_path2)
+    os.system("sox '"+fpath+"' -n remix 1 rate 24k spectrogram -a -w Hann -p 2 -c '"+current_datetime+"' -o '"+spec_path+"'")
+    #os.system("sox '"+fpath+"' -n remix 1 rate 192k spectrogram -a -w Hann -p 2 -c '"+current_datetime+"' -o '"+spec_path2+"'")
 
 
     # Open audio file and split into 3-second chunks

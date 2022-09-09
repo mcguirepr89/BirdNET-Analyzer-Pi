@@ -17,6 +17,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "@alpinejs/intersect": "^3.10.3"
+        "@alpinejs/intersect": "^3.10.3",
+        "flowbite": "^1.5.3"
     }
 }

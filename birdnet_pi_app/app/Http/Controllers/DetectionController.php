@@ -15,7 +15,25 @@ class DetectionController extends Controller
      */
     public function index()
     {
-        return view('detections');
+	if (strpos(url()->current(), 'api')) {
+		return Detection::latest()->get();
+	}
+	else
+	{
+                // Livewire fetches the data for this view
+                return view('detections');
+	}
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function species()
+    {
+        // Livewire fetches the data for this view
+        return view('species');
     }
 
     /**

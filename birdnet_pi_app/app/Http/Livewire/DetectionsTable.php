@@ -14,7 +14,7 @@ class DetectionsTable extends Component
     {
         return view('livewire.detections-table', [
             'detections' => Detection::latest()->filter(
-                        request(['search'])
+                        request(['search', 'file_name'])
                     )->paginate(10)->withQueryString()
         ]);
     }

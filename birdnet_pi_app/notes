@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS detections (\
+sci_name VARCHAR(100) NOT NULL,\
+com_name VARCHAR(100) NOT NULL,\
+confidence FLOAT,\
+latitude FLOAT,\
+longitude FLOAT,\
+cutoff FLOAT,\
+week INT,\
+sens FLOAT,\
+overlap FLOAT,\
+file_name VARCHAR(100) NOT NULL,\
+created_at DATETIME NULL, \
+updated_at DATETIME NULL;

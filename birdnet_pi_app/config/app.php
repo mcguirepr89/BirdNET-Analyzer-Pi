@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://raspberrypi.local'),
+    'url' => env('APP_URL', 'https://newbnp.birdnetpi.com'),
 
     'asset_url' => env('ASSET_URL'),
 

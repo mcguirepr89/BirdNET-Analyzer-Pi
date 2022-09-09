@@ -18,6 +18,19 @@ Route::fallback(function () {
 	return redirect('/detections');
 });
 
+Route::get('/api', function() {
+	$routes = Route::getRoutes()->get();
+	foreach ($routes as $route)
+	{
+		if(str_starts_with($route->uri, 'api'))
+	    {
+			$api_routes[] = $route;
+	    }
+	}
+	return view('api', [ 'api_routes' => $api_routes ]);
+});
+
+Route::get('species', [DetectionController::class, 'species'])->name('species');
 Route::resource('detections', DetectionController::class);
 
 Route::middleware([

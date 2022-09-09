@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Detection;
-
-
+use App\Models\Config;
+use App\Http\Controllers\DetectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +17,12 @@ use App\Models\Detection;
 |
 */
 
-Route::get('/detections', function () {
-    //return Detection::latest()->get();
-    return Detection::latest()->filter(
-                    request(['search'])
-                )->withQueryString();
-});
+//Route::get('/detections', function () {
+//    return Detection::latest()->get();
+//});
+
+Route::resource('detections', DetectionController::class);
 
 Route::get('/config', function () {
-    return Configuration::latest()->get();
+    return Config::latest()->get();
 });

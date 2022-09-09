@@ -16,6 +16,19 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <!-- Dark Mode Stuff -->
+        <script>
+            if (
+              localStorage.getItem('color-theme') === 'dark' ||
+              (!('color-theme' in localStorage) &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          </script>
     </head>
     @if(session()->has('success'))
     <x-flash/>
@@ -23,11 +36,11 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-slate-800">
             @livewire('navigation-menu')
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="shadow-none sm:shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -43,5 +56,6 @@
         @stack('modals')
 
         @livewireScripts
+        <script src="assets/flowbite/js/flowbite.js"></script>
     </body>
 </html>

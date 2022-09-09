@@ -6,7 +6,7 @@
     </x-slot> --}}
 
     <div class="sm:p-3">
-    	<div class="max-w-7xl mx-auto bg-white shadow-xl sm:rounded-xl">
+    	<div class="max-w-7xl mx-auto bg-white shadow-xl rounded-xl">
             <x-config-editor />
     	</div>
     </div>
