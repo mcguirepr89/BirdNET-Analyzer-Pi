@@ -1,10 +1,11 @@
 <x-forms.form submit="/config">
+    
     <x-slot name="title">
-        {{ __('BirdNET Configuration') }}
+        <div class="dark:text-slate-900 dark:font-semibold">{{ __('BirdNET-Pi Configuration') }}</div>
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your BirdNET Configuration.') }}
+        <div class="text-center mt-1 text-md text-gray-600 sm:sticky sm:top-6">{{ __('Update your BirdNET Configuration.') }}</div>
     </x-slot>
 
     <x-slot name="form">

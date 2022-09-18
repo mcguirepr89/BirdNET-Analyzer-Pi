@@ -1,6 +1,3 @@
-@php
-    use Illuminate\Http\Request;
-@endphp
 @if (isset($_GET['page']) || isset($_GET['search']) || isset($_GET['file_name']))
 <div class="flex flex-col bg-white dark:bg-slate-700">
 @else
@@ -15,7 +12,7 @@
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
                   <?php if(!isset($_GET['file_name'])){?>
                   <form name="search" method="GET" action="">
-                    <input name="search" id="search" class="text-center text-gray-600 dark:text-gray-200  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-white dark:bg-slate-400 font-normal w-64 h-10 text-sm border-gray-300 dark:border-slate-900 rounded-full border shadow-lg" placeholder="{{ request('search', 'Search by species') }}" type="search"/>
+                    <input name="search" id="search" class="text-center text-gray-600 dark:text-gray-200  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-white dark:bg-slate-400 font-normal w-64 h-10 text-sm border-gray-300 dark:border-slate-900 rounded-full border shadow-lg dark:placeholder-slate-900" placeholder="{{ request('search', 'Search by species') }}" type="search"/>
                   </form>
                   <?php }?>
                 </th>
@@ -25,12 +22,13 @@
               @foreach ($detections as $detection)
               <tr class="">
                 <td class="p-0 text-md text-gray-900 dark:text-gray-200 font-medium md:px-6 py-4">
-                  <a href="https://<?php if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){echo substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".";}?>wikipedia.org/wiki/{{$detection->sci_name}}" class="p-2 hover:text-green-300 hover:bg-blue-800 hover:rounded-2xl hover:overflow-hidden hover:z-0" target="_blank">{{ $detection->com_name }}</a>
-                  {{ $detection->confidence }} --
+                  <a href="{{ url(route('species')."/".$detection->com_name) }}" class="hover:text-green-400 hover:font-semibold">{{ $detection->com_name }}</a><span>
+                  <a href="https://<?php if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){echo substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".";}?>wikipedia.org/wiki/{{$detection->sci_name}}" class="p-2 hover:text-green-300 hover:bg-blue-800 hover:rounded-2xl hover:overflow-hidden hover:z-0 italic" target="_blank">{{ $detection->sci_name }}</a></span><br>
+                  <span title="Confidence Score" class="hover:cursor-help">{{ $detection->confidence }}</span> --
                   <?php if(!isset($_GET['file_name']))
                   {
-                    echo $detection->created_at->diffForHumans();?>
-                    -- <a class="hover:font-semibold hover:text-green-600" href="/detections?file_name=<?= $detection->file_name;?>">Detection Link</a>
+                    echo '<span title="'.$detection->created_at." \n(".config('app.timezone').')" class="hover:cursor-help">'.$detection->created_at->diffForHumans().'</span>';?>
+                    -- <a class="hover:font-semibold hover:text-green-600" href="/detections?file_name=<?= $detection->file_name;?>">Link</a>
                   <?php }else{
                     echo $detection->created_at;
                   };?> 

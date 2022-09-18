@@ -26,43 +26,43 @@ class ConfigFactory extends Factory
             // 'CHANNELS' => 2,
             // 'SAMPLE_RATE' => 48000,
             // 'SIG_LENGTH' => 3.0,
-// SIG_OVERLAP = 0 
-// SIG_MINLEN = 3.0 
-// RECORDING_LENGTH = 15
-// SEGMENT_LENGTH = 6
-// AUDIO_FMT = 'mp3'
-// [OS Paths]
-// RECS_DIR = 'Raw'
-// ANALYZED_DIR = 'Analyzed'
-// SEGMENTS_DIR = 'Segments'
-// STORAGE_DIR = 'Storage'
-// DATABASE_PATH = 'birdnet_pi_app/database/database.sqlite'
-// [Metadata and user settings]
-// LANGUAGE = 'en'
-// STORAGE = 'purge'
-// STORAGE_LIMIT = '750M'
-// LATITUDE = 38.8263
-// LONGITUDE = -77.2111
-// WEEK = -1
-// LOCATION_FILTER_THRESHOLD = 0.03
-// [Inference settings]
-// CODES_FILE = 'eBird_taxonomy_codes_2021E.json'
-// SPECIES_LIST_FILE = '' 
-// INPUT_PATH = ''
-// OUTPUT_PATH = ''
-// CPU_THREADS = 2
-// TFLITE_THREADS = 1 
-// APPLY_SIGMOID = True 
-// SIGMOID_SENSITIVITY = 1.0
-// MIN_CONFIDENCE = 0.5
-// BATCH_SIZE = 1
-// RESULT_TYPE = 'csv'
-// [Misc runtime vars]
-// CODES = {}
-// LABELS = []
-// TRANSLATED_LABELS = []
-// SPECIES_LIST = []
-// ERROR_LOG_FILE = 'error_log.txt'
+            // SIG_OVERLAP = 0 
+            // SIG_MINLEN = 3.0 
+            // RECORDING_LENGTH = 15
+            // SEGMENT_LENGTH = 6
+            // AUDIO_FMT = 'mp3'
+            // [OS Paths]
+            // RECS_DIR = 'Raw'
+            // ANALYZED_DIR = 'Analyzed'
+            // SEGMENTS_DIR = 'Segments'
+            // STORAGE_DIR = 'Storage'
+            // DATABASE_PATH = 'birdnet_pi_app/database/database.sqlite'
+            // [Metadata and user settings]
+            // LANGUAGE = 'en'
+            // STORAGE = 'purge'
+            // STORAGE_LIMIT = '750M'
+            'LATITUDE' => shell_exec('curl -s4 ifconfig.co/json | jq .latitude'),
+            'LONGITUDE' => shell_exec('curl -s4 ifconfig.co/json | jq .longitude')
+            // WEEK = -1
+            // LOCATION_FILTER_THRESHOLD = 0.03
+            // [Inference settings]
+            // CODES_FILE = 'eBird_taxonomy_codes_2021E.json'
+            // SPECIES_LIST_FILE = '' 
+            // INPUT_PATH = ''
+            // OUTPUT_PATH = ''
+            // CPU_THREADS = 2
+            // TFLITE_THREADS = 1 
+            // APPLY_SIGMOID = True 
+            // SIGMOID_SENSITIVITY = 1.0
+            // MIN_CONFIDENCE = 0.5
+            // BATCH_SIZE = 1
+            // RESULT_TYPE = 'csv'
+            // [Misc runtime vars]
+            // CODES = {}
+            // LABELS = []
+            // TRANSLATED_LABELS = []
+            // SPECIES_LIST = []
+            // ERROR_LOG_FILE = 'error_log.txt'
 
         ];
     }

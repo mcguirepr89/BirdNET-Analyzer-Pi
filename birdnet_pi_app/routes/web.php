@@ -14,36 +14,42 @@ use App\Http\Controllers\ConfigController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::fallback(function () {
+
+
+Route::fallback(function () 
+{
 	return redirect('/detections');
-});
+})->name('fallback');
 
-Route::get('/api', function() {
-	$routes = Route::getRoutes()->get();
-	foreach ($routes as $route)
-	{
-		if(str_starts_with($route->uri, 'api'))
-	    {
-			$api_routes[] = $route;
-	    }
-	}
-	return view('api', [ 'api_routes' => $api_routes ]);
-});
 
+
+//Public Routes
 Route::get('species', [DetectionController::class, 'species'])->name('species');
+Route::get('species/{detection:com_name}', [DetectionController::class, 'show_com'])->name('show_species');
 Route::resource('detections', DetectionController::class);
 
+
+
+
+// Login required
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
-
+])->group(function () 
+{
     Route::resource('config', ConfigController::class)->only([
         'index', 'store'
     ]);
-
 });
+
+
+
+
+
+
+
+
 
 // This logs DB queries to storage/logs/laravel.log	
 // \DB::listen(function($sql) {

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-400 leading-tight">
             {{ __('API Tokens') }}
         </h2>
     </x-slot>
@@ -24,9 +24,11 @@
                 <div class="text-2xl text-center p-3">Available API Endpoints</div>
                 @foreach ($api_routes as $api_route)
                     @foreach ($api_route->methods as $api_method)
-                        <div class="p-1">
-                        {{$api_route->uri }} {{ $api_method }}<br>
+                        @if($api_method !== 'HEAD')
+                        <div class="p-3 ml-3">
+                            <a href="/{{$api_route->uri }}">{{$api_route->uri}}</a> {{ $api_method }}<br>
                         </div>
+                        @endif
                     @endforeach
                 @endforeach
             </div>

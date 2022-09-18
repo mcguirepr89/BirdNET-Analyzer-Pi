@@ -17,12 +17,24 @@ use App\Http\Controllers\DetectionController;
 |
 */
 
-//Route::get('/detections', function () {
-//    return Detection::latest()->get();
-//});
-
-Route::resource('detections', DetectionController::class);
-
-Route::get('/config', function () {
-    return Config::latest()->get();
+// Display API endpoints in the 'api.blade.php' view
+Route::get('/', function() {
+	$routes = Route::getRoutes()->get();
+	foreach ($routes as $route)
+	{
+		if(str_starts_with($route->uri, 'api'))
+	    {
+			$api_routes[] = $route;
+	    }
+	}
+	return view('api', [ 'api_routes' => $api_routes ]);
 });
+
+
+// Endpoints
+Route::get('/detections', [DetectionController::class, 'index']);
+Route::get('/detections/species', [DetectionController::class, 'species']);
+Route::get('/detections/com_name/{detection:com_name}', [DetectionController::class, 'show_com']);
+Route::get('/detections/sci_name/{detection:sci_name}', [DetectionController::class, 'show_sci']);
+
+Route::get('/config', function () { return Config::latest()->get(); });
